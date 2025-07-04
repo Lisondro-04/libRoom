@@ -13,8 +13,6 @@ pip install -r requirements.txt <!--en este documento se listan todas las liberÃ
 
 pip freeze > requirements.txt <!--requirements.txt para actualizarlo cada vez que se instala una nueva librerÃ­a -->
 
-deactivate  <!--para cerrar el entorno virtual luego de terminar de trabajar. -->
-
 <!-- traducir antes de entregar el repositorio -->
 
 
