@@ -15,7 +15,7 @@ pip install django djangorestframework <!--solo la primera vez que se abra el pr
 
 pip install -r requirements.txt <!--en este documento se listan todas las liberías que se utilizarán en este proyecto, en el mismo se deben incluir las librerías que se vayan instalando en el futuro -->
 
-pip freeze > <!--requirements.txt para actualizarlo cada vez que se instala una nueva librería -->
+pip freeze > requirements.txt <!--requirements.txt para actualizarlo cada vez que se instala una nueva librería -->
 
 deactivate  <!--para cerrar el entorno virtual luego de terminar de trabajar. -->
 
