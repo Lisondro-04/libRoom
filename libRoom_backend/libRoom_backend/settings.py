@@ -37,10 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'restframework',
+    'rest_framework',
     'corsheaders',
     #libRoom apps
+    'libRoom_backend',
     'projects',
+    'characters',
+    'worldbuilding',
+    'outline',
+    'editor',
+    'notes',
+    'preferences',
+    'exporter',
+    'settingsmanager',
 ]
 
 MIDDLEWARE = [
