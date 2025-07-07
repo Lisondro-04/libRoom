@@ -37,15 +37,15 @@ Gestionar y mantener sincronizada la estructura narrativa del proyecto:
     │       └── scene_3.md
 
 ## chapter.md
-title: Capítulo I
-ID: ch-001
-type: folder
-label: 3
-status: draft
-compile: 2
-setGoal: 4500
-wordCount: 2396
-scenes_ids: ["scn-001", "scn-002"...]
+    title: Capítulo I
+    ID: ch-001
+    type: folder
+    label: 3
+    status: draft
+    compile: 2
+    setGoal: 4500
+    wordCount: 2396
+    scenes_ids: ["scn-001", "scn-002"...]
 
 ## key operations
 

@@ -4,6 +4,17 @@ Permite al usuario leer, modificar y guardar configuraciones generales del entor
 
 Consume la ruta del archivo settings.json desde project.json, y se encarga de mantenerlo actualizado ante cualquier cambio solicitado desde el frontend.
 
+# nav
+
+Volver al inicio:
+[Index](index.md)
+
+Anterior:
+[Exporter](exporter.md)
+
+Siguiente:
+[Preferences](preferences.md)
+
 ## objective
 
 - acceder al archivo settings.json para leer, modificar y persistir configuraciones.
@@ -30,7 +41,7 @@ Documentar para el drf-spectacular (ver documentación pertinente)
     GET /api/settings/
 Retorna las configuraciones actuales del usuario
 
-PUT /api/settings/
+    PUT /api/settings/
 Actualiza configuraciones del entorno
 
 ### request example
@@ -81,11 +92,5 @@ Actualiza configuraciones del entorno
 - Validar que las rutas recibidas existan  o crea las carpetas necesarias.
 - Proteger la lectura/escritura concurrente con locks o atomic operations.
 
-# nav
-Volver al inicio:
-- [Index](index.md)
-Anterior:
-- [Exporter](exporter.md)
-Siguiente:
-- [Preferences](preferences.md)
+
 

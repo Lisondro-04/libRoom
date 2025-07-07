@@ -110,8 +110,10 @@ Cada vista puede documentarse con drf-spectacular para generar especificaciones 
 
 # nav
 Volver al inicio:
-- [Index](index.md)
+[Index](index.md)
+
 Anterior:
-- [Characters](characters.md)
+[Characters](characters.md)
+
 Siguiente:
-- [Outline](outline.md)
+[Outline](outline.md)

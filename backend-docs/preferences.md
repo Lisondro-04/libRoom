@@ -21,19 +21,18 @@ Estas preferencias afectan directamente el frontend (Flutter), pero son gestiona
 
 ## preferences.json structure
 
-{
-    "theme": "dark-theme" // opciones: light-theme, dark-theme, system-default
-    "editor_font": "Times New Roman"
-    "font_size": "12",
-    "skin": "coffee-talk" //opciones: among-us, walter-white, coffe-talk, among-us, etc.
-    "total_words_goal": "65000", // también debe actualizar project.json
-    "session_goal": "3000",
-    "focus_button": "on", // permite o no pantalla completa en el frontend.
-    "show_lateral_menu": "on", //"on" / "off" - menú lateral en el frontend.
-    "auto_spell_check": "on", //"on" / "off"- correción automática en el editor del frontend.
-    "global_tips": "on", //"on" / "off"-activa o desactiva los consejos de uso y escritura en el frontend.
-
-}
+    {
+        "theme": "dark-theme" // opciones: light-theme, dark-theme, system-default
+        "editor_font": "Times New Roman"
+        "font_size": "12",
+        "skin": "coffee-talk" //opciones: among-us, walter-white, coffe-talk, among-us, etc.
+        "total_words_goal": "65000", // también debe actualizar project.json
+        "session_goal": "3000",
+        "focus_button": "on", // permite o no pantalla completa en el frontend.
+        "show_lateral_menu": "on", //"on" / "off" - menú lateral en el frontend.
+        "auto_spell_check": "on", //"on" / "off"- correción automática en el editor del frontend.
+        "global_tips": "on", //"on" / "off"-activa o desactiva los consejos de uso y escritura en el frontend.
+    }
 
 ## project.json integration
 Se debe consumir la ruta del proyecto desde project.json para encontrar el archivo preferences.json.

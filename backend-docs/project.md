@@ -38,45 +38,47 @@ Contiene metadatos principales de la obra y referencias a sus archivos internos,
 
     ## resource files
 
-    desde estos archivos se toman tanto los colores, como los nombres de ciertas características, llamando únicamente al archivo y leyendo su contenido.
-    ### tags.txt
-      draft: #FFDD00
-      reviewed: #00DDFF
-      final: #00FF00
+desde estos archivos se toman tanto los colores, como los nombres de ciertas características, llamando únicamente al archivo y leyendo su contenido.
 
-    ### plots.txt
-      main_plot: Trama principal
-      subplot1: Conflicto político
-      subplot2: Romance entre aliados
+### tags.txt
+    draft: #FFDD00
+    reviewed: #00DDFF
+    final: #00FF00
 
-    ### summary.txt
-    Resumen breve de la historia, visible en Flutter para facilitar navegación y exportación.
+### plots.txt
+    main_plot: Trama principal
+    subplot1: Conflicto político
+    subplot2: Romance entre aliados
 
-    ## core files
+### summary.txt
+Resumen breve de la historia, visible en Flutter para facilitar navegación y exportación.
 
-    ### chapter.md
-      Archivo de cada capítulo (va dentro de cada carpeta de capítulo):
-      title: Capítulo I
-      ID: ch-000
-      type: folder
-      label: 3
-      status: draft
-      compile: 1
-      setGoal: 4500
-      wordCount: 2396
-      scenes_id: ["scn-001, "scn-002"]
+## core files
+
+### chapter.md
+Archivo de cada capítulo (va dentro de cada carpeta de capítulo):
+
+    title: Capítulo I
+    ID: ch-000
+    type: folder
+    label: 3
+    status: draft
+    compile: 1
+    setGoal: 4500
+    wordCount: 2396
+    scenes_id: ["scn-001, "scn-002"]
 
 ### scene_x.md
-  Escena individual (están dentro de cada carpeta capítulo):
-  title: 
-  ID: scn-001
-  type: md
-  POV: char-004
-  label: 4
-  status: draft
-  compile: 2
-  setGoal: 1500
-  wordCount: 1350
+Escena individual (están dentro de cada carpeta capítulo):
+    title: 
+    ID: scn-001
+    type: md
+    POV: char-004
+    label: 4
+    status: draft
+    compile: 2
+    setGoal: 1500
+    wordCount: 1350
 
 # libraries
 os, shutil, pathlib: Crear carpetas, archivos y manejar rutas locales.

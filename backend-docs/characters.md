@@ -3,11 +3,11 @@ Esta app se encarga de la creación, gestión y edición de las fichas de person
 
 # nav
 Volver al inicio:
-- [Index](index.md)
+[Index](index.md)
 Anterior:
-- [Characters](characters.md)
+[Characters](characters.md)
 Siguiente:
-- [Worldbuilding](worldbuilding.md)
+[Worldbuilding](worldbuilding.md)
 
 # how-it-should-be
 
@@ -32,22 +32,20 @@ Se utilizara para:
 - Mostrar una lista de personajes en el editor de personajes.
 - Seleccionar un personaje como POV en *editor*.
 
-    [
+[
         {
-            "id": "char-001",
-            "name": "Mark",
-            type "main",
-            "path": "characters/Mark.md"
-        },
-        {
-            "id": "char-002",
-            "name": "Loise",
-            "type": "secondary",
-            "path": "characters/Loise.md"
-        }
-    ]
-
-este archivo
+        "id": "char-001",
+        "name": "Mark",
+        type "main",
+        "path": "characters/Mark.md"
+    },
+    {
+        "id": "char-002",
+        "name": "Loise",
+        "type": "secondary",
+        "path": "characters/Loise.md"
+    }
+]
 
 ## editing by section
 En el editor del frontend (gestionado por la app *editor*), se puede seleccionar una sección específica del archivo (por ejemplo: "Bacground"), y:

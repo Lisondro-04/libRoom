@@ -2,6 +2,16 @@
 
 Gestiona las notas auxiliares de escritura creadas por el usuario. Permite crear, editar, asociar y clasificar notas relacionadas con escenas, capítulos, entidades de worldbuilding o como notas globales.
 
+# nav
+Volver al inicio:
+[Index](index.md)
+
+Anterior:
+[Editor](editor.md)
+
+Siguiente:
+[Exporter](exporter.md)
+
 ## objectives
 - Crear notas con un id único.
 - Asociar notas con escenas, capítulos, entidades del mundo u otras entidades definidas.
@@ -21,6 +31,7 @@ Gestiona las notas auxiliares de escritura creadas por el usuario. Permite crear
     ├── ...
 
 ## notes_index structure
+
 **campo**      **tipo**      **descripción**
 id              str             identificador único de la nota (nt-000)
 title           str             título de la nota
@@ -28,6 +39,7 @@ linked_to:      object          información de asociación: *type*: tipo de ent
 word_count      int             número de palabras de la nota 
 created_at      datetime        Fecha de creación (ISO 8601)
 updated_at      datetime        Fecha de última edición
+
     {
     "notes": [
         {
@@ -68,6 +80,7 @@ updated_at      datetime        Fecha de última edición
 
 ## nt-000.md file 
 (nt = note)
+
     ID: nt-001
     title: Detalles de la Ciudad Roja
     type: note
@@ -131,10 +144,3 @@ Documentar para el drf-spectacular (ver documentación pertinente)
 - El recuento de palabras se calcula al guardar o consultar la nota.
 - Los filtros por asociación permiten organizar el flujo en el frontend (ej: ver solo las notas de una escena).
 
-# nav
-Volver al inicio:
-- [Index](index.md)
-Anterior:
-- [Editor](editor.md)
-Siguiente:
-- [Exporter](exporter.md)
