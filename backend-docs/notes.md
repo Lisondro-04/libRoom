@@ -32,13 +32,15 @@ Siguiente:
 
 ## notes_index structure
 
-**campo**      **tipo**      **descripción**
-id              str             identificador único de la nota (nt-000)
-title           str             título de la nota
-linked_to:      object          información de asociación: *type*: tipo de entidad (blg-scn, blg-wrld, blg-ch, glob). target_id: ID exacto de la entidad asociada (o *null* si es global)
-word_count      int             número de palabras de la nota 
-created_at      datetime        Fecha de creación (ISO 8601)
-updated_at      datetime        Fecha de última edición
+|**campo**    |  **tipo**     | **descripción**|
+|---           |  ----          |-----
+|id            |   str          |   identificador único de la nota (nt-000)|
+|title         |  str          |   título de la nota|
+|linked_to:    |  object        |  información de asociación: *type*: 
+tipo de entidad (blg-scn, blg-wrld, blg-ch, glob). target_id:   ID exacto de la entidad asociada |(o *null* si es global) |
+|word_count    | int           |  número de palabras de la nota |
+|created_at    | datetime      |  Fecha de creación (ISO 8601) |
+|updated_at    | datetime      |  Fecha de última edición|
 
     {
     "notes": [
@@ -89,11 +91,11 @@ updated_at      datetime        Fecha de última edición
     ->contenido de la nota aquí...
 
 ## asociations
-blg = belongs, ch = chapters, scn = scene, wrld = world, glob = global.
-Capítulo: blg-ch -> asociación con un capítulo específico.
-Escena: blg-scn -> asociación con una escena específica.
-Worldbuilding: blg-wrld -> asociación con un objeto de worldbuilding.
-Global: glob -> nota general, sin asociación directa.
+- blg = belongs, ch = chapters, scn = scene, wrld = world, glob = global.
+- Capítulo: blg-ch -> asociación con un capítulo específico.
+- Escena: blg-scn -> asociación con una escena específica.
+- Worldbuilding: blg-wrld -> asociación con un objeto de worldbuilding.
+- Global: glob -> nota general, sin asociación directa.
 
 ## key functions
 

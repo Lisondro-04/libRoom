@@ -7,11 +7,13 @@ Al crear un nuevo proyecto, se escoge si será una novela o un cuento (este últ
 
 # nav
 Volver al inicio:
-- [Index](index.md)
+[Index](index.md)
+
 Anterior:
-- [Apps Overview](apps-overview.md)
+[Apps Overview](apps-overview.md)
+
 Siguiente:
-- [Characters](characters.md)
+[Characters](characters.md)
 
 ## structure of the project.json
 Contiene metadatos principales de la obra y referencias a sus archivos internos, necesario para que el sistema almacene y recupere las rutas. Es un archivo núcleo junto a chapter.md y scene_x.md
@@ -36,16 +38,18 @@ Contiene metadatos principales de la obra y referencias a sus archivos internos,
         "scenes_by_chapter": "00",
       }
 
-    ## resource files
+## resource files
 
 desde estos archivos se toman tanto los colores, como los nombres de ciertas características, llamando únicamente al archivo y leyendo su contenido.
 
 ### tags.txt
+
     draft: #FFDD00
     reviewed: #00DDFF
     final: #00FF00
 
 ### plots.txt
+
     main_plot: Trama principal
     subplot1: Conflicto político
     subplot2: Romance entre aliados
@@ -70,6 +74,7 @@ Archivo de cada capítulo (va dentro de cada carpeta de capítulo):
 
 ### scene_x.md
 Escena individual (están dentro de cada carpeta capítulo):
+
     title: 
     ID: scn-001
     type: md
@@ -81,8 +86,8 @@ Escena individual (están dentro de cada carpeta capítulo):
     wordCount: 1350
 
 # libraries
-os, shutil, pathlib: Crear carpetas, archivos y manejar rutas locales.
+- os, shutil, pathlib: Crear carpetas, archivos y manejar rutas locales.
 markdown2 o mistune	Leer/parsing de archivos Markdown.
-json	Leer y escribir project.json.
-PyFilesystem2 (opcional)	Manejar filesystem.
-watchdog (opcional)	Para detectar cambios en archivos y sincronizar automáticamente.
+- json	Leer y escribir project.json.
+- PyFilesystem2 (opcional)	Manejar filesystem.
+- watchdog (opcional)	Para detectar cambios en archivos y sincronizar automáticamente.

@@ -2,6 +2,16 @@
 
 Se encarga de transformar y exportar el contenido del proyecto (capítulos, escenas), en múltiples formatos, con configuraciones personalizables relacionadas con contenido, estilo, estructura y formato de salida.
 
+# nav
+Volver al inicio:
+[Index](index.md)
+
+Anterior:
+[Notes](notes.md)
+
+Siguiente:
+[Settings](settings.md)
+
 ## main functionalities
 
 - Exportación en múltiples formatos:
@@ -70,11 +80,3 @@ respuesta
 
 ## technical considerations
 - Usar una carpeta temporal (tempfile) antes de mover el archivo final al default_export_path.
-
-# nav
-Volver al inicio:
-- [Index](index.md)
-Anterior:
-- [Notes](notes.md)
-Siguiente:
-- [Settings](settings.md)

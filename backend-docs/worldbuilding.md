@@ -2,6 +2,16 @@
 
 Gestiona toda la información de construcción de mundo en un proyecto: lugares, ciudades, objetos importantes, costumbres, razas, historia.
 
+# nav
+Volver al inicio:
+[Index](index.md)
+
+Anterior:
+[Characters](characters.md)
+
+Siguiente:
+[Outline](outline.md)
+
 # objectives
 - Crear un world.json como índice del worldbuilding.
 - Crear automáticamente subcarpetas iniciales cómo:
@@ -108,12 +118,3 @@ Cada vista puede documentarse con drf-spectacular para generar especificaciones 
 		...
 
 
-# nav
-Volver al inicio:
-[Index](index.md)
-
-Anterior:
-[Characters](characters.md)
-
-Siguiente:
-[Outline](outline.md)

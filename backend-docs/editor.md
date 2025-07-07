@@ -2,6 +2,16 @@
 
 Es el editor de escenas propiamente dicho, se encarga de editar y administrar el contenido narrativo de las escenas de un proyecto. Opera directamente sobre los archivos .md de escena y expone endpoints que permiten modificar tanto el texto como actualizar los metadatos relacionados.
 
+# nav
+Volver al inicio:
+[Index](index.md)
+
+Anterior:
+[Outline](outline.md)
+
+Siguiente:
+[Notes](notes.md)
+
 ## objectives
 - Leer, editar y guardar el contenido de una escena específica.
 - Editar metatados asociados a una escena (POV, status, title, setGoal, etc.).
@@ -18,16 +28,16 @@ Es el editor de escenas propiamente dicho, se encarga de editar y administrar el
 ## scene_x.md structure
 ver [Project](project.md)
 
-  title: 
-  ID: scn-001
-  type: md
-  POV: char-004
-  label: 4
-  status: draft
-  compile: 2
-  setGoal: 1500
-  charCount: 7350
-  #sobreescribir solo de aquí en adelante, sin duplicar ni romper metadatos.
+    title: 
+    ID: scn-001
+    type: md
+    POV: char-004
+    label: 4
+    status: draft
+    compile: 2
+    setGoal: 1500
+    charCount: 7350
+    #sobreescribir solo de aquí en adelante, sin duplicar ni romper metadatos.
 
 ## key operations
 
@@ -84,10 +94,3 @@ El archivo de escena se divide en dos partes a editar: cabecera de metadatos y c
 - Al cambiar el capítulo, debe mover la escena y actualizar el scenes_ids en el chapter.md
 - Enviar la cantidad de palabras que se han ido guardando para que el settings y el editor puedan visualizar y para saber cuánto se ha cumplido del objetivo
 
-# nav
-Volver al inicio:
-- [Index](index.md)
-Anterior:
-- [Outline](outline.md)
-Siguiente:
-- [Notes](notes.md)

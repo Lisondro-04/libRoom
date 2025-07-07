@@ -2,6 +2,16 @@
 
 Es el árbol de capítulos y escenas. Se encarga de presentar representar y gestionar el árbol estructural del proyecto: capítulos, escenas y jerarquía.
 
+# nav
+Volver al inicio:
+- [Index](index.md)
+
+Anterior:
+- [Worldbuilding](worldbuilding.md)
+
+Siguiente:
+- [Editor](editor.md)
+
 ## objective
 
 Gestionar y mantener sincronizada la estructura narrativa del proyecto:
@@ -112,10 +122,3 @@ Al mover una escena, se debe:
 - Añadir su ID al campo scenes_ids del capítulo nuevo.
 
 Es importante que los IDs sean únicos y rastreables por otras apps como editor, tags, notes, etc (tienen el siguiente formato: ch-000 para capítulos, scn-000 para escenas)
-# nav
-Volver al inicio:
-- [Index](index.md)
-Anterior:
-- [Worldbuilding](worldbuilding.md)
-Siguiente:
-- [Editor](editor.md)

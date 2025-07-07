@@ -4,6 +4,17 @@ Permite al usuario personalizar aspectos del comportamiento visual y funcional d
 
 Estas preferencias afectan directamente el frontend (Flutter), pero son gestionadas, persistidas y enviadas desde el backend Django.
 
+# nav
+Volver al inicio:
+[Index](index.md)
+
+Anterior:
+[Settings](settings.md)
+
+Siguiente:
+[DRF-SPECTACULAR](drf-spectacular.md)
+
+
 ## objectives
 - Leer y actualizar preferences.json.
 - Recibir las preferencias desde el frontend y enviarlas nuevamente para aplicación visual.
@@ -79,10 +90,3 @@ usar en los views @extend_schema para documentar claramente en Swagger:
 
 Documentar para el drf-spectacular (ver documentación pertinente)
 
-# nav
-Volver al inicio:
-- [Index](index.md)
-Anterior:
-- [Settings](settings.md)
-Siguiente:
-- [DRF-SPECTACULAR](drf-spectacular.md)
