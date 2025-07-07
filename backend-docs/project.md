@@ -15,55 +15,56 @@ Siguiente:
 
 ## structure of the project.json
 Contiene metadatos principales de la obra y referencias a sus archivos internos, necesario para que el sistema almacene y recupere las rutas. Es un archivo núcleo junto a chapter.md y scene_x.md
-  {
-    "title": "",
-    "author": "",
-    "created": "dd-mm-yyyy",
-    "outline_path": "outline/",
-    "characters_path": characters/
-    "world_path": "world/",
-    "notes_path": "notes/",
-    "settings_file": "settings.json",
-    "preferences_file": "preferences.json",
-    "summary_file": "summary.txt",
-    "tags_file": "tags.txt",
-    "plots_file": "plots.txt",
-    "total_words_goal": "0000000",
-    "words_by_scene": "00000",
-    "words_by_chapter": "000000",
-    "number_of_chapters": "000",
-    "scenes_by_chapter": "00",
-  }
 
-## resource files
+      {
+        "title": "",
+        "author": "",
+        "created": "dd-mm-yyyy",
+        "outline_path": "outline/",
+        "characters_path": characters/
+        "world_path": "world/",
+        "notes_path": "notes/",
+        "settings_file": "settings.json",
+        "preferences_file": "preferences.json",
+        "summary_file": "summary.txt",
+        "tags_file": "tags.txt",
+        "plots_file": "plots.txt",
+        "total_words_goal": "0000000",
+        "words_by_scene": "00000",
+        "words_by_chapter": "000000",
+        "number_of_chapters": "000",
+        "scenes_by_chapter": "00",
+      }
 
-desde estos archivos se toman tanto los colores, como los nombres de ciertas características, llamando únicamente al archivo y leyendo su contenido.
-### tags.txt
-  draft: #FFDD00
-  reviewed: #00DDFF
-  final: #00FF00
+    ## resource files
 
-### plots.txt
-  main_plot: Trama principal
-  subplot1: Conflicto político
-  subplot2: Romance entre aliados
+    desde estos archivos se toman tanto los colores, como los nombres de ciertas características, llamando únicamente al archivo y leyendo su contenido.
+    ### tags.txt
+      draft: #FFDD00
+      reviewed: #00DDFF
+      final: #00FF00
 
-### summary.txt
-Resumen breve de la historia, visible en Flutter para facilitar navegación y exportación.
+    ### plots.txt
+      main_plot: Trama principal
+      subplot1: Conflicto político
+      subplot2: Romance entre aliados
 
-## core files
+    ### summary.txt
+    Resumen breve de la historia, visible en Flutter para facilitar navegación y exportación.
 
-### chapter.md
-  Archivo de cada capítulo (va dentro de cada carpeta de capítulo):
-  title: Capítulo I
-  ID: ch-000
-  type: folder
-  label: 3
-  status: draft
-  compile: 1
-  setGoal: 4500
-  wordCount: 2396
-  scenes_id: ["scn-001, "scn-002"]
+    ## core files
+
+    ### chapter.md
+      Archivo de cada capítulo (va dentro de cada carpeta de capítulo):
+      title: Capítulo I
+      ID: ch-000
+      type: folder
+      label: 3
+      status: draft
+      compile: 1
+      setGoal: 4500
+      wordCount: 2396
+      scenes_id: ["scn-001, "scn-002"]
 
 ### scene_x.md
   Escena individual (están dentro de cada carpeta capítulo):

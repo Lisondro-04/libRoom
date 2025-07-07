@@ -44,10 +44,11 @@ txt, md, docx, odt, pdf (usando pando u otros)
     }
 
 respuesta
+
     {
     "success": true,
     "message": "Exportación completada.",
-    "output_path": "C:/Users/josue/exports/project_01.pdf"
+    "output_path": "C:/Users/usuario/exports/project_01.pdf"
     }
 
 ## drf-spectacular
