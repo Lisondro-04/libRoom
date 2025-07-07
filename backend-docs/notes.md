@@ -36,8 +36,7 @@ Siguiente:
 |---           |  ----          |-----
 |id            |   str          |   identificador único de la nota (nt-000)|
 |title         |  str          |   título de la nota|
-|linked_to:    |  object        |  información de asociación: *type*: 
-tipo de entidad (blg-scn, blg-wrld, blg-ch, glob). target_id:   ID exacto de la entidad asociada |(o *null* si es global) |
+|linked_to:    |  object        |  información de asociación: *type*: tipo de entidad (blg-scn, blg-wrld, blg-ch, glob). target_id:   ID exacto de la entidad asociada |(o *null* si es global) |
 |word_count    | int           |  número de palabras de la nota |
 |created_at    | datetime      |  Fecha de creación (ISO 8601) |
 |updated_at    | datetime      |  Fecha de última edición|

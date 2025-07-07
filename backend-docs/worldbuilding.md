@@ -37,6 +37,7 @@ Esta app depende del archivo project.json generado por la app *project* para:
 
 ### world.json structure
 Funciona como índice del worldbuilding, permitiendo ubicar y registrar los archivos de mundo, ejemplo
+
 	{
 	"places": [
 		{

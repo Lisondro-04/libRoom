@@ -4,13 +4,13 @@ Es el árbol de capítulos y escenas. Se encarga de presentar representar y gest
 
 # nav
 Volver al inicio:
-- [Index](index.md)
+[Index](index.md)
 
 Anterior:
-- [Worldbuilding](worldbuilding.md)
+[Worldbuilding](worldbuilding.md)
 
 Siguiente:
-- [Editor](editor.md)
+[Editor](editor.md)
 
 ## objective
 
