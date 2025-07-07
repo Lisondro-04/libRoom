@@ -1,0 +1,9 @@
+# Index
+- [Projects](project.md)
+- [Characters](characters.md)
+- [Worldbuilding](worldbuilding.md)
+- [Outline](outline.md)
+- [Editor](editor.md)
+- [Notes](notes.md)
+- [Preferences](preferences.md)
+- [Settings](settings.md)
