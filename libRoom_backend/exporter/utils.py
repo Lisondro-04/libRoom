@@ -1,42 +1,61 @@
-import os
+import os, re, subprocess
 import json
-import re
-import subprocess
 
 def load_project_structure(root_path, include_chapters=True, include_scenes=True, status_filter=None):
     chapters_dir = os.path.join(root_path, "outline")
-    chapters= []
+    chapters = []
+
     for folder in sorted(os.listdir(chapters_dir)):
         chapter_path = os.path.join(chapters_dir, folder, "chapter.md")
         if not os.path.exists(chapter_path):
             continue
 
-        with open(chapter_path, encoding="utf-8") as f:
-            lines = f.read().splitlines()
-
-        chapter_data = {"id": None, "title": None, "status": None, "scenes": []}
-        for line in lines:
-            if line.startswith("id: "): chapter_data["id"]=line[4:]
-            elif line.startswith("title: "): chapter_data["title"]=line[7:]
-            elif line.startswith("status: "): chapter_data["status"]=int(line[8:])
-            elif line.startswith("scenes_ids: "):
-                scenes_ids = line[len("scenes_ids: "):].split(", ")
-                chapter_data["Scenes_ids"] = scenes_ids
+        chapter_data = parse_chapter_file(chapter_path)
 
         if status_filter and chapter_data["status"] not in status_filter:
             continue
 
         if include_scenes:
-            scenes = []
-            for sid in chapter_data.get("scenes_ids", []):
-                scene_file = os.path.join(chapters_dir, folder, f"{sid}.md")
-                if os.path.exists(scene_file):
-                    with open(scene_file, encoding="utf-8") as f:
-                        scene_text = f.read()
-                    scenes.append({"id": sid, "title": f"Scene {sid}", "text": scene_text})
-            chapter_data["scenes"] = scenes
-            chapters.append(chapter_data)
+            chapter_data["scenes"] = load_scenes_for_chapter(chapters_dir, folder, chapter_data.get("scenes_ids", []))
+
+        chapters.append(chapter_data)
+
     return chapters
+
+def parse_chapter_file(chapter_path):
+    with open(chapter_path, encoding="utf-8") as f:
+        lines = f.read().splitlines()
+
+    data = {"id": None, "title": None, "status": None, "scenes_ids": []}
+
+    for line in lines:
+        if line.startswith("id: "):
+            data["id"] = line[4:]
+        elif line.startswith("title: "):
+            data["title"] = line[7:]
+        elif line.startswith("status: "):
+            data["status"] = int(line[8:])
+        elif line.startswith("scenes_ids: "):
+            ids = line[len("scenes_ids: "):].split(", ")
+            data["scenes_ids"] = ids
+
+    return data
+
+def load_scenes_for_chapter(chapters_dir, folder, scene_ids):
+    scenes = []
+    for sid in scene_ids:
+        scene_file = os.path.join(chapters_dir, folder, f"{sid}.md")
+        if not os.path.exists(scene_file):
+            continue
+        with open(scene_file, encoding="utf-8") as f:
+            scene_text = f.read()
+        scenes.append({
+            "id": sid,
+            "title": f"Scene {sid}",
+            "text": scene_text
+        })
+    return scenes
+
 
 def apply_text_transformations(content, transformations, separators):
     sep_ch = separators.get("between_chapters", "\n\n")
@@ -57,11 +76,11 @@ def apply_text_transformations(content, transformations, separators):
 
 def apply_replacements(text, t):
     if t.get("remove_multiple_spaces"):
-        text = re.sub (r'[ \t]{2}', ' ', text)
+        text = re.sub(r'[ \t]{2,}', ' ', text)
     if "double_quotes" in t:
         text = text.replace('"', t["double_quotes"][1])
-    if "single_qoutes" in t:
-        text = text.replace("'", t["double_quotes"][1])
+    if "single_quotes" in t:
+        text = text.replace("'", t["single_quotes"][1])
     if "long_dash" in t:
         text = text.replace("---","—")
     for k, v in t.get("custom_replacements", {}).items():
