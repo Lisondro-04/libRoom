@@ -42,7 +42,7 @@ def export_project(config):
     final_text += transformed_content
 
     # use tempfile before moving to final path
-    with tempfile.NamedTemporaryFile(delete=False, suffix=f".{config[format]}") as tmp_file:
+    with tempfile.NamedTemporaryFile(delete=False, suffix=f".{config['format']}") as tmp_file:
         tmp_path = tmp_file.name
         export_to_format(
             text=final_text,
