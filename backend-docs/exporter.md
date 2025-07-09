@@ -15,7 +15,8 @@ Siguiente:
 ## main functionalities
 
 - Exportación en múltiples formatos:
-txt, md, docx, odt, pdf (usando pando u otros)
+txt, md, docx, odt, pdf (usando pandoc u otros)
+- Contenido a exportar: carpeta /outline (contiene capítulos, escenas). Cada capítulo tiene un chapter.md con la información de capítulo, (con la ruta /project/outline/chapter_x/chapter.md) en el mismo hay un campo llamado scenes_ids que guarda los id de cada escena. En el chapter.md hay un campo llamado id que contiene el id del capítulos. Los formatos de estos id son: scn-000 para las escenas y ch-000 para los capítulos. Existe un project.json en la ruta /project (raíz del proyecto), que contiene los metadatos del la obra: "title" y "author" son los que se incluirán en el archivo en la parte del título principal (por encima del resto de capítulos), y el "author" como autor del archivo.  
 - Filtros de contenido exportado:
  - Incluir capítulos, escenas u otros niveles.
  - Filtrar por estado de escena o capítulo (ej, solo finalizados)
@@ -58,10 +59,11 @@ respuesta
     {
     "success": true,
     "message": "Exportación completada.",
-    "output_path": "C:/Users/usuario/exports/project_01.pdf"
+    "output_path": "C:/Users/user/exports/project_01.pdf"
     }
 
 ## drf-spectacular
+documentar para drf-spectacular, ejemplo:
 
     from drf_spectacular.utils import extend_schema, OpenApiExample
     from rest_framework.views import APIView
