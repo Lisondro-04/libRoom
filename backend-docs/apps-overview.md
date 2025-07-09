@@ -48,6 +48,7 @@ De ser posible, añadirle pandoc.
 Responsabilidad: Configuración de rutas, carpetas de trabajo, configuración interna del programa (no estética).
 
 ## File system
+-project
     - outline/ #lo incluido dentro de esta carpeta dependerá de la plantilla#
         - capítulos/  #contendrá los markdown de las escenas
                 - scene.md #markdown de cada escena#
@@ -61,4 +62,4 @@ Responsabilidad: Configuración de rutas, carpetas de trabajo, configuración in
     - plots.txt #almacena las etiquetas de las tramas#
     - summary.txt #almacena el resumen de la historia
     - notas # carpeta de notas
-    - lib_room.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta
+    - project.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta
