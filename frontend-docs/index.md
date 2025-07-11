@@ -1,7 +1,7 @@
 # Index
-- [Projects](project.md)
+- [Projects](projects.md)
 - [Characters](characters.md)
-- [Worldbuilding](worldbuilding.md)
+- [World](worldbuilding.md)
 - [Outline](outline.md)
 - [Editor](editor.md)
 - [Notes](notes.md)
