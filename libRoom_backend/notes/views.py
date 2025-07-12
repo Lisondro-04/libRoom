@@ -6,6 +6,7 @@ from datetime import datetime
 from .serializers import NoteSerializer
 from . import utils
 
+
 class NotesListView(APIView):
     @extend_schema(
         summary="Listar todas las notas o filtradas por tipo",

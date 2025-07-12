@@ -5,3 +5,4 @@ class NoteSerializer(serializers.Serializer):
     title = serializers.CharField()
     linked_to = serializers.CharField()
     content = serializers.CharField()
+
