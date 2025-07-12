@@ -53,13 +53,17 @@ Responsabilidad: Configuración de rutas, carpetas de trabajo, configuración in
         - capítulos/  #contendrá los markdown de las escenas
                 - scene.md #markdown de cada escena#
     - world/ #contiene información esencial para el usuario#
+        - world.json # índice de archivos de world, contiene información para ubicar cada archivo, incluyendo su id (plc-000 para places, obj-000 para objetos, cit-000 para ciudades, cus-000 para archivos custom)
         - places
         - objects
         - cities
-        - other decided by the user
+        - other/ otros, aquí se guardan los archivos cus-000
     - characters/
-    - tags.txt #almacena los colores de las etiquetas de estado#
+        -characters_list.json
+        - character_name.md
+    - tags.txt #almacena las etiquetas de estado y sus colores#
     - plots.txt #almacena las etiquetas de las tramas#
     - summary.txt #almacena el resumen de la historia
-    - notas # carpeta de notas
-    - project.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta
+    - notas/ # carpeta de notas
+        - notes.json # índice de notas (los id de las notas tienen este formato : nt-000)
+    - project.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta (todos los archivos listados arriba de este archivo).
