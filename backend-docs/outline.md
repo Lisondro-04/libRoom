@@ -51,7 +51,7 @@ Gestionar y mantener sincronizada la estructura narrativa del proyecto:
     ID: ch-001
     type: folder
     label: 3
-    status: draft
+    status: draft # status se consume desde el archivo tags.txt en la raíz, (se encuentra en el campo "tags_file" del project.json)
     compile: 2
     setGoal: 4500
     wordCount: 2396

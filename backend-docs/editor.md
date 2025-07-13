@@ -12,18 +12,83 @@ Anterior:
 Siguiente:
 [Notes](notes.md)
 
+
 ## objectives
 - Leer, editar y guardar el contenido de una escena específica.
-- Editar metatados asociados a una escena (POV, status, title, setGoal, etc.).
-- Obetener información del personaje asignado a la escena (POV).
-- Permitir funcionalidades de búsqueda goblal (world, outline, notes...).
+- Editar metatados asociados a una escena (POV, status, title, setGoal, etc.). Asociando el POV de un personaje (el id del personaje) al campo POV de la escena.
+- Obtener información del personaje asignado a la escena (POV).
+- Permitir funcionalidades de búsqueda goblal (world, outline, notes...) a partir de los tags asociados en cada archivo .json dentro de las carpetas world, notes.
 - Posibilitar el renombramiento de escenas y capítulos.
+
+## paths almacenados en settings.py
+BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECTS_BASE_DIR = BASE_DIR / "user" / "projects"
+CURRENT_PROJECT_PATH = PROJECTS_BASE_DIR / "current"
+PROJECT_JSON_PATH = CURRENT_PROJECT_PATH / "project.json"
+
+CURRENT_PROJECT_PATH = str (CURRENT_PROJECT_PATH) # para importar "from libRoom_backend.settings import PROJECT_JSON_PATH"
+
+## File system
+-project
+    - outline/ #lo incluido dentro de esta carpeta dependerá de la plantilla#
+        - capítulos/  #contendrá los markdown de las escenas
+                - scene.md #markdown de cada escena#
+    - world/ #contiene información esencial para el usuario#
+        - world.json # índice de archivos de world, contiene información para ubicar cada archivo, incluyendo su id (plc-000 para places, obj-000 para objetos, cit-000 para ciudades, cus-000 para archivos custom)
+        - places
+        - objects
+        - cities
+        - other/ otros, aquí se guardan los archivos cus-000
+    - characters/
+        -characters_list.json
+        - character_name.md
+    - tags.txt #almacena las etiquetas de estado y sus colores#
+    - plots.txt #almacena las etiquetas de las tramas#
+    - summary.txt #almacena el resumen de la historia
+    - notas/ # carpeta de notas
+        - notes.json # índice de notas (los id de las notas tienen este formato : nt-000)
+    - project.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta (todos los archivos listados arriba de este archivo).
 
 ## data
 - *characters* app: Nombres de personajes + IDs desde characters_list.json.
 - *outline* app: capítulos y escenas relacionadas desde chapter.md
 - *project* app: metadatos generales del proyecto, objetivos desde project.json, etiquetas, trama desde tags.txt y plots.txt
 - Las opcines de status se consumen desde tags.txt
+
+## integration and dependencies
+
+- Depende del archivo project.json.
+- Trabaja directamente sobre la carpeta outline/:
+    - chapters/
+        - chapter_x/
+            - chapter.md
+            - scene_x.md
+- Envía rutas y metadatos a la app *editor*.
+
+## folder structure
+estructura del folder outline, desde dónde el editor debe consumir para editar el contenido.
+    outline/
+    ├── chapters/
+    │   ├── chapter_1/
+    │   │   ├── chapter.md
+    │   │   ├── scene_1.md
+    │   │   └── scene_2.md
+    │   └── chapter_2/
+    │       ├── chapter.md
+    │       └── scene_3.md
+
+## chapter.md
+
+    title: Capítulo I
+    ID: ch-001
+    type: folder
+    label: 3
+    status: draft
+    compile: 2
+    setGoal: 4500
+    wordCount: 2396
+    scenes_ids: ["scn-001", "scn-002"...]
+
 
 ## scene_x.md structure
 ver [Project](project.md)
@@ -37,9 +102,11 @@ ver [Project](project.md)
     compile: 2
     setGoal: 1500
     charCount: 7350
-    #sobreescribir solo de aquí en adelante, sin duplicar ni romper metadatos.
+    # sobreescribir solo de aquí en adelante, sin duplicar ni romper metadatos.
 
 ## key operations
+
+Añadir más operaciones de ser necesarias
 
     GET /editor/scenes/{id}/
 Retorna contenido completo de una escena (metadatos + narrativa).

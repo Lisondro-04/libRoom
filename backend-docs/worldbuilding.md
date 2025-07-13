@@ -12,20 +12,21 @@ Anterior:
 Siguiente:
 [Outline](outline.md)
 
-# objectives
+# objectives 
 - Crear un world.json como índice del worldbuilding.
 - Crear automáticamente subcarpetas iniciales cómo:
 	- places/
 	- objects/
 	- cities/
-- Permitir la creación de archivos .md personalizados desde el frontend (ej. "Religions.md" o "Creatures.md").
+	- other/
+- Permitir la creación de archivos .md personalizados desde el frontend (ej. "Religions.md" o "Creatures.md") no asociados a las carpetas iniciales sino a la carpeta /other.
 - Asociar un id a cada entrada para que pueda ser usuada en otras secciones como el editor de escenas, filtros o en la búsqueda global.
 
 ## file intregation
 Esta app depende del archivo project.json generado por la app *project* para:
 - Detectar la carpeta world/.
 - Validar la estructura del proyecto.
-- Sincronizar datros entre backend y frontend.
+- Sincronizar datos entre backend y frontend.
 
 ### world folder structure
 	world/ 
@@ -53,7 +54,11 @@ Funciona como índice del worldbuilding, permitiendo ubicar y registrar los arch
 		"path": "world/objects/soul_breaker.md"
 		}
 	],
-	"cities": [],
+	"cities": [{
+		"id": "cit-002",
+		"title": "White Harbour",
+		"path": "world/cities/white_harbour.md"
+	}],
 	"custom": [
 		{
 		"id": "cus-001",
@@ -64,6 +69,8 @@ Funciona como índice del worldbuilding, permitiendo ubicar y registrar los arch
 	}
 
 ### object.md structure
+
+Similar para el resto de archivos (places, objects, cities, custom)
 
 	Title: Soul Breaker
 	ID: obj-002
