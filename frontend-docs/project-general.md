@@ -7,7 +7,7 @@ Pick template
     - Novel (type = "novel")
 
 ## buttons
-open file (abre el sistema de archivos del usuario, la primera vez en directorio raíz, las siguientes en la última ubicación dónde se guardó alo).
+open file (abre el sistema de archivos del usuario, la primera vez en directorio raíz, las siguientes en la última ubicación dónde se guardó).
 
 create: crea un nuevo proyecto, llamando a la lógica de creación de proyecto en la api, guardando la carpeta en un directorio escogido por el usuario.
 
