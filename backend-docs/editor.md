@@ -47,7 +47,45 @@ CURRENT_PROJECT_PATH = str (CURRENT_PROJECT_PATH) # para importar "from libRoom_
     - summary.txt #almacena el resumen de la historia
     - notas/ # carpeta de notas
         - notes.json # índice de notas (los id de las notas tienen este formato : nt-000)
-    - project.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta (todos los archivos listados arriba de este archivo).
+    - project.json #almacena el título y datos de la obra y el autor, además de permitirle al programa encontrar los archivos relacionados a esta (todos los archivos listados arriba de este archivo)
+
+### project.json
+
+      {
+        "title": "",
+        "author": "",
+        "created": "dd-mm-yyyy",
+        "outline_path": "outline/", (aquí dentro se encuentras las carpetas de los capítulos(chapter_X/), cada carpeta tiene un chapter.md, con la lista de id de scenas en un campo scenes_ids)
+        "characters_path": characters/ (aquí se encuentra el characters_list.json)
+        "world_path": "world/",
+        "notes_path": "notes/",
+        "settings_file": "settings.json",
+        "preferences_file": "preferences.json",
+        "summary_file": "summary.txt",
+        "tags_file": "tags.txt",
+        "plots_file": "plots.txt",
+        "total_words_goal": "0000000",
+        "words_by_scene": "00000",
+        "words_by_chapter": "000000",
+        "number_of_chapters": "000",
+        "scenes_by_chapter": "00",
+      }
+
+### charactes_list.json
+    [
+            {
+            "id": "char-001",
+            "name": "Mark",
+            type "main",
+            "path": "characters/Mark.md"
+        },
+        {
+            "id": "char-002",
+            "name": "Loise",
+            "type": "secondary",
+            "path": "characters/Loise.md"
+        }
+    ]
 
 ## data
 - *characters* app: Nombres de personajes + IDs desde characters_list.json.
@@ -101,7 +139,7 @@ ver [Project](project.md)
     status: draft
     compile: 2
     setGoal: 1500
-    charCount: 7350
+    wordCOunt: 7350
     # sobreescribir solo de aquí en adelante, sin duplicar ni romper metadatos.
 
 ## key operations
