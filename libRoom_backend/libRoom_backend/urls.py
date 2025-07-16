@@ -35,4 +35,5 @@ urlpatterns = [
     path('api/', include('exporter.urls')),
     path('api/', include('preferences.urls')),
     path('api/settings/', SettingsView.as_view(), name='settings'),
+    path('', include('settingsmanager.urls')),
 ]
