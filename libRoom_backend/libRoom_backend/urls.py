@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'), # Documentación interactiva Swagger
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),# Documentación Redoc
     path('api/settings/', SettingsView.as_view(), name='settings'),
+    path('', include('settingsmanager.urls')),
 ]
