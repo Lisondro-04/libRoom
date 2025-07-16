@@ -11,6 +11,8 @@ open file (abre el sistema de archivos del usuario, la primera vez en directorio
 
 create: crea un nuevo proyecto, llamando a la lógica de creación de proyecto en la api, guardando la carpeta en un directorio escogido por el usuario.
 
+
+al abrir un proyecto, leer el settings.json y el preferences.json y cargar las configuraciones que se encuentren en estos, hacer configuraciones por defecto. 
 ## statistics editor
 
 No. of chapters (solo en la opción novela): campo de texto para escribir la cantidad de capítulos, y un spinbox con el que mover los números.
