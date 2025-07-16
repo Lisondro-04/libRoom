@@ -5,5 +5,6 @@
 - [Outline](outline-view.md)
 - [Editor](editor-view.md)
 - [Notes](notes-view.md)
+- [Export](export-view.md)
 - [Preferences](preferences-view.md)
 - [Settings](settings-view.md)
