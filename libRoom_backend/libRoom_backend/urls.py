@@ -25,6 +25,14 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'), # Endpoint del esquema en formato JSON
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'), # Documentación interactiva Swagger
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),# Documentación Redoc
+    # api paths
+    path('api/', include('projects.urls')),
+    path('api/', include('characters.urls')),
+    path('api/', include('worldbuilding.urls')),
+    path('api/', include('outline.urls')),
+    path('api/', include('editor.urls')),
+    path('api/', include('notes.urls')),
+    path('api/', include('exporter.urls')),
     path('api/', include('preferences.urls')),
     path('api/settings/', SettingsView.as_view(), name='settings'),
 ]

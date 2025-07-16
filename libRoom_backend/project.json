@@ -1,0 +1,20 @@
+{
+    "title": "",
+    "author": "",
+    "created": "dd-mm-yyyy",
+    "outline_path": "outline/",
+    "characters_path": "characters/",
+    "project_root": ".",
+    "world_path": "world/",
+    "notes_path": "notes/",
+    "settings_file": "settings.json",
+    "preferences_file": "preferences.json",
+    "summary_file": "summary.txt",
+    "tags_file": "tags.txt",
+    "plots_file": "plots.txt",
+    "total_words_goal": "0000000",
+    "words_by_scene": "00000",
+    "words_by_chapter": "000000",
+    "number_of_chapters": "000",
+    "scenes_by_chapter": "00"
+}
