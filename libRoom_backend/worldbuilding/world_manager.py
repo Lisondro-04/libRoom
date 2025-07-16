@@ -2,8 +2,6 @@ import os, json, re
 from django.conf import settings
 import textwrap
 
-
-
 class WorldManager:
 
     def __init__(self):

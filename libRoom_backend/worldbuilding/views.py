@@ -5,22 +5,13 @@ from rest_framework.exceptions import NotFound, ValidationError
 from drf_spectacular.utils import extend_schema, OpenApiTypes
 from .serializers import WorldIndexSerializer, NewEntrySerializer
 from .world_manager import WorldManager
-from serializers import serializers
-from .world_manager import WorldManager
 import json
-import os
 
-wm = WorldManager()
-
-def get_world_root():
+def get_world_manager():
     try:
-        with open(wm, 'r', encoding='utf-8') as f:
-            project_data = json.load(f)
-        return project_data.get('world_path', 'world')
-    except Exception:
-        return 'world'
-
-wm = WorldManager(get_world_root())
+        return WorldManager()
+    except FileNotFoundError:
+        return None  # o lanza un error más amigable si prefieres
 
 class WorldIndexView(APIView):
 
@@ -29,6 +20,9 @@ class WorldIndexView(APIView):
         responses={200: WorldIndexSerializer}
     )
     def get(self, request):
+        wm = get_world_manager()
+        if not wm:
+            raise NotFound("No se encontró project.json")
         index = wm.get_index()
         return Response(index)
 
@@ -37,9 +31,9 @@ class WorldIndexView(APIView):
         responses={201: WorldIndexSerializer}
     )
     def post(self, request):
+        wm = WorldManager()  # Aquí sí está bien crearlo
         wm.ensure_structure()
         return Response(wm.get_index(), status=status.HTTP_201_CREATED)
-
 
 class WorldAddEntryView(APIView):
 
@@ -49,6 +43,10 @@ class WorldAddEntryView(APIView):
         responses={201: WorldIndexSerializer}
     )
     def post(self, request):
+        wm = get_world_manager()
+        if not wm:
+            raise NotFound("No se encontró project.json")
+
         serializer = NewEntrySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
@@ -59,7 +57,6 @@ class WorldAddEntryView(APIView):
         except FileExistsError as e:
             raise ValidationError(str(e))
 
-
 class WorldEntryDetailView(APIView):
 
     @extend_schema(
@@ -67,6 +64,10 @@ class WorldEntryDetailView(APIView):
         responses={200: OpenApiTypes.STR}
     )
     def get(self, request, category, id):
+        wm = get_world_manager()
+        if not wm:
+            raise NotFound("No se encontró project.json")
+
         try:
             content = wm.read_entry(category, id)
             return Response(content)
@@ -78,21 +79,28 @@ class WorldEntryDetailView(APIView):
         responses={204: None}
     )
     def delete(self, request, category, id):
+        wm = get_world_manager()
+        if not wm:
+            raise NotFound("No se encontró project.json")
+
         try:
             wm.delete_entry(category, id)
             return Response(status=status.HTTP_204_NO_CONTENT)
         except FileNotFoundError:
             raise NotFound("Archivo no encontrado")
 
-
 class WorldEntrySectionEditView(APIView):
 
     @extend_schema(
         summary="Editar sección específica de un archivo markdown",
-        request=serializers.Serializer,  # Se espera {'content': str, 'section': str}
+        request=NewEntrySerializer,  # deberías definir un serializer aquí
         responses={200: OpenApiTypes.STR}
     )
     def patch(self, request, category, id):
+        wm = get_world_manager()
+        if not wm:
+            raise NotFound("No se encontró project.json")
+
         content = request.data.get('content')
         section = request.data.get('section')
         if not content or not section:

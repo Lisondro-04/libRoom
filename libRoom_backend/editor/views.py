@@ -53,7 +53,7 @@ class SceneGoalUpdateView(APIView):
         if not path:
             return Response({"eror": "Scene not found"}, status=404)
         data = read_scene_file(path)
-        data('setGoal') = request.data['setGoal']
+        data['setGoal'] = request.data['setGoal']
         write_scene_file(path, data)
         return Response(data)
     
