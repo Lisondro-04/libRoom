@@ -36,6 +36,7 @@ def create_chapter_scene_structure(base_path: Path, chapters: int, scenes_per_ch
                 "type": "md",
                 "POV": "",
                 "label": str(scn_index + 1),
+                "plots": "",
                 "status": "draft",
                 "compile": 2,
                 "setGoal": str(words_per_scene),
