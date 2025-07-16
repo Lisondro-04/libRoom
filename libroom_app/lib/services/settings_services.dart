@@ -5,7 +5,7 @@ import 'dart:convert';
 import '../models/settings.dart';
 
 class SettingsService {
-  final String baseUrl = 'http://TU_IP:8000/api/settings/';
+  final String baseUrl = 'http://127.0.0.1:8000/api/settings/';
 
   Future<Setting> fetchSettings() async {
     final response = await http.get(Uri.parse(baseUrl));
