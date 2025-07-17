@@ -22,7 +22,7 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   Future<void> fetchNotes() async {
-    final response = await http.get(Uri.parse('http://localhost:8000/api/notes/'));
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/notes/'));
     if (response.statusCode == 200) {
       setState(() {
         notes = json.decode(response.body);

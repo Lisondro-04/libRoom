@@ -19,7 +19,7 @@ class _WorldIndexPageState extends State<WorldIndexPage> {
   }
 
   Future<void> _loadIndex() async {
-    final res = await http.get(Uri.parse('https://miapi.com/api/world/'));
+    final res = await http.get(Uri.parse('https://127.0.0.1:8000/api/world/'));
     if (res.statusCode == 200) {
       if (!mounted) return; // <-- Protección
       setState(() {

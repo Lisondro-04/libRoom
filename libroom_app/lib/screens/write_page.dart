@@ -19,7 +19,7 @@ class _WritePageState extends State<WritePage> {
     setState(() => _isLoading = true);
 
     final res = await http.post(
-      Uri.parse('https://miapi.com/api/notes/'),
+      Uri.parse('https://127.0.0.1:8000/api/notes/'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'title': _titleController.text,
