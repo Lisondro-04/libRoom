@@ -1,4 +1,7 @@
 # Project manager menu
+    
+título de la pantalla: Create a new project, centrado a la mitad de la ventana y a una distancia de 50 píxeles de la parte superior de la ventana.
+lo que sigue debe estar en un contenedor a 108 píxeles de la parte superior, y  173 de la parte izquierda, centrado, contiene lo siguiente:
 
 ## template options
 
@@ -9,6 +12,8 @@ Pick template
     - Novel (type = "novel")
 
 ## buttons
+
+estos botones deben estar debajo del editor de estadísticas, hacia la parte derecha.
 open file (abre el sistema de archivos del usuario, la primera vez en directorio raíz, las siguientes en la última ubicación dónde se guardó). en este caso se obtienen los datos del proyecto.
 
 create: crea un nuevo proyecto, llamando a la lógica de creación de proyecto en la api, guardando la carpeta en un directorio escogido por el usuario y enviándole la información
