@@ -11,7 +11,7 @@ class ExportScreen extends StatefulWidget {
 
 class _ExportScreenState extends State<ExportScreen> {
   ExportOptions _options = ExportOptions(exportTo: 'txt');
-  final _service = ExportService('http://localhost:8000');
+  final _service = ExportService('http://127.0.0.1/:8000');
 
   Future<void> _submitExport() async {
     try {
