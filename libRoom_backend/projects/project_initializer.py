@@ -68,6 +68,10 @@ def generate_project_json(base_path: Path, data: dict):
     content = {
         "title": data["title"],
         "author": data["author"],
+        "series": data["series"],
+        "volume": data["volume"],
+        "license": data["license"],
+        "email": data["email"],
         "created": now,
         "outline_path": "outline/",
         "characters_path": "characters/",

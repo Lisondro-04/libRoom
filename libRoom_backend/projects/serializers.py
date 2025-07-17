@@ -12,6 +12,11 @@ class ProjectCreationSerializer(serializers.Serializer):
 class ProjectSerializer(serializers.Serializer):
     title = serializers.CharField()
     author = serializers.CharField()
+    series = serializers.CharField()
+    volume = serializers.CharField()
+    genres = serializers.CharField()
+    license = serializers.CharField()
+    email = serializers.CharField()
     outline_path = serializers.CharField()
     characters_path = serializers.CharField()
     world_path = serializers.CharField()
