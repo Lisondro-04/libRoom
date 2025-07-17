@@ -36,4 +36,4 @@ Genres:
 License:
 Author e-mail: 
 
-Botón create: guarda los datos en el project.json <!-- añadir lógica de guardado al project-app, aunque probablemente no sea necesario, otra forma es que al editar desde acá, al darle a guardar se cambia el archivo, archivo que leerá de nuevo project-app cuando el proyecto se vuelva a abrir.--->
+Botón save: guarda los datos en el project.json <!-- añadir lógica de guardado al project-app, aunque probablemente no sea necesario, otra forma es que al editar desde acá, al darle a guardar se cambia el archivo, archivo que leerá de nuevo project-app cuando el proyecto se vuelva a abrir.--->
