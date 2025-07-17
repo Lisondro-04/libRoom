@@ -1,6 +1,6 @@
 class Setting {
   String interfaceLanguage;
-  String interfaceFont; // quitar 'final'
+  String interfaceFont;
   int interfaceFontSize;
   String defaultProjectSaveLocation;
   String autoSaveFrequency;
