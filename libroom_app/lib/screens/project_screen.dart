@@ -3,8 +3,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../models/project_model.dart';
 import '../services/project_services.dart';
+import '../widgets/sidebar_widget.dart'; 
 
 class CreateProjectScreen extends StatefulWidget {
+  const CreateProjectScreen({super.key});
+
   @override
   _CreateProjectScreenState createState() => _CreateProjectScreenState();
 }
@@ -28,51 +31,50 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     totalWords = scenes * wordsPerScene * (type == 'novel' ? chapters : 1);
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                'Create a new project',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 58),
-            Padding(
-              padding: const EdgeInsets.only(left: 173),
+      body: Row(
+        children: [
+          const Sidebar(), 
+
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Center(
+                    child: Text(
+                      'Create a new project',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 58),
                   Text('Pick a template', style: TextStyle(fontSize: 18)),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   templateButton('Prose', ''),
                   templateButton('Tale', 'short_story'),
                   templateButton('Novel', 'novel'),
-                  SizedBox(height: 30),
-
+                  const SizedBox(height: 30),
                   if (type != '') statisticsEditor(),
-
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
                         onPressed: openFile,
-                        child: Text('Open File'),
+                        child: const Text('Open File'),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       ElevatedButton(
                         onPressed: createProject,
-                        child: Text('Create'),
+                        child: const Text('Create'),
                       ),
                     ],
                   )
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -87,8 +89,8 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         });
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected ? Colors.blue[100] : Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -102,17 +104,18 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (type == 'novel') numberEditor("No. of chapters", chapters, (val) {
-          setState(() => chapters = val);
-        }),
+        if (type == 'novel')
+          numberEditor("No. of chapters", chapters, (val) {
+            setState(() => chapters = val);
+          }),
         numberEditor("No. of scenes", scenes, (val) {
           setState(() => scenes = val);
         }),
         numberEditor("Words per scene", wordsPerScene, (val) {
           setState(() => wordsPerScene = val);
         }),
-        SizedBox(height: 10),
-        Text("Total words: $totalWords", style: TextStyle(fontSize: 16)),
+        const SizedBox(height: 10),
+        Text("Total words: $totalWords", style: const TextStyle(fontSize: 16)),
       ],
     );
   }
@@ -133,11 +136,11 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.remove),
+          icon: const Icon(Icons.remove),
           onPressed: () => onChanged(value > 1 ? value - 1 : 1),
         ),
         IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: () => onChanged(value + 1),
         ),
       ],
@@ -181,16 +184,16 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
       final settings = await _service.getSettings();
       final preferences = await _service.getPreferences();
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Proyecto creado con éxito"),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Proyecto creado con éxito")),
+      );
 
       print("Settings: $settings");
       print("Preferences: $preferences");
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error al crear proyecto"),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Error al crear proyecto")),
+      );
     }
   }
 }

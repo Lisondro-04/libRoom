@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/preferences.dart';
 import '../services/preferences_services.dart';
+import '../widgets/sidebar_widget.dart';
 
 class PreferencesScreen extends StatefulWidget {
   final PreferencesService service;
@@ -35,7 +36,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
 
   void _save() async {
     if (_prefs != null) {
-      await widget.service.updatePreferences(1, _prefs!); // Ajusta el ID según tu backend
+      await widget.service.updatePreferences(1, _prefs!);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Preferences updated')),
       );
@@ -51,48 +52,80 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Preferences')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      body: Row(
         children: [
-          _buildDropdown('Theme', _prefs!.theme, ['default', 'dark', 'light'], (val) {
-            setState(() => _prefs = _prefs!.copyWith(theme: val));
-          }),
-          _buildDropdown('Font', _prefs!.font, ['Times New Roman', 'Arial', 'Courier'], (val) {
-            setState(() => _prefs = _prefs!.copyWith(font: val));
-          }),
-          _buildDropdown('Skin', _prefs!.skin, ['coffee-talk', 'minimal', 'retro'], (val) {
-            setState(() => _prefs = _prefs!.copyWith(skin: val));
-          }),
-          _buildNumberInput('Font Size', _prefs!.fontSize, (val) {
-            setState(() => _prefs = _prefs!.copyWith(fontSize: val));
-          }),
-          _buildNumberInput('Overall Goal', _prefs!.goal, (val) {
-            setState(() => _prefs = _prefs!.copyWith(goal: val));
-          }),
-          _buildNumberInput('Goal Per Session', _prefs!.goalPerSession, (val) {
-            setState(() => _prefs = _prefs!.copyWith(goalPerSession: val));
-          }),
-          _buildSwitch('Focus Button', _prefs!.focusButton, (val) {
-            setState(() => _prefs = _prefs!.copyWith(focusButton: val));
-          }),
-          _buildSwitch('Show Lateral Menu', _prefs!.showLateralMenu, (val) {
-            setState(() => _prefs = _prefs!.copyWith(showLateralMenu: val));
-          }),
-          _buildSwitch('Spell Check', _prefs!.spellCheck, (val) {
-            setState(() => _prefs = _prefs!.copyWith(spellCheck: val));
-          }),
-          _buildSwitch('Global Tips', _prefs!.globalTips, (val) {
-            setState(() => _prefs = _prefs!.copyWith(globalTips: val));
-          }),
-          const SizedBox(height: 20),
-          ElevatedButton(onPressed: _save, child: const Text('Save')),
+          const Sidebar(),
+          Expanded(
+            child: Column(
+              children: [
+                AppBar(
+                  title: const Text('Preferences'),
+                  backgroundColor: Colors.deepPurple,
+                ),
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      _buildDropdown('Theme', _prefs!.theme,
+                          ['default', 'dark', 'light'], (val) {
+                        setState(() => _prefs = _prefs!.copyWith(theme: val));
+                      }),
+                      _buildDropdown('Font', _prefs!.font,
+                          ['Times New Roman', 'Arial', 'Courier'], (val) {
+                        setState(() => _prefs = _prefs!.copyWith(font: val));
+                      }),
+                      _buildDropdown('Skin', _prefs!.skin,
+                          ['coffee-talk', 'minimal', 'retro'], (val) {
+                        setState(() => _prefs = _prefs!.copyWith(skin: val));
+                      }),
+                      _buildNumberInput('Font Size', _prefs!.fontSize, (val) {
+                        setState(() =>
+                            _prefs = _prefs!.copyWith(fontSize: val));
+                      }),
+                      _buildNumberInput('Overall Goal', _prefs!.goal, (val) {
+                        setState(() => _prefs = _prefs!.copyWith(goal: val));
+                      }),
+                      _buildNumberInput(
+                          'Goal Per Session', _prefs!.goalPerSession, (val) {
+                        setState(() =>
+                            _prefs = _prefs!.copyWith(goalPerSession: val));
+                      }),
+                      _buildSwitch(
+                          'Focus Button',
+                          _prefs!.focusButton,
+                          (val) => setState(() =>
+                              _prefs = _prefs!.copyWith(focusButton: val))),
+                      _buildSwitch(
+                          'Show Lateral Menu',
+                          _prefs!.showLateralMenu,
+                          (val) => setState(() =>
+                              _prefs = _prefs!.copyWith(showLateralMenu: val))),
+                      _buildSwitch(
+                          'Spell Check',
+                          _prefs!.spellCheck,
+                          (val) => setState(() =>
+                              _prefs = _prefs!.copyWith(spellCheck: val))),
+                      _buildSwitch(
+                          'Global Tips',
+                          _prefs!.globalTips,
+                          (val) => setState(() =>
+                              _prefs = _prefs!.copyWith(globalTips: val))),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                          onPressed: _save, child: const Text('Save')),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildDropdown(String label, String value, List<String> options, Function(String) onChanged) {
+  Widget _buildDropdown(String label, String value, List<String> options,
+      Function(String) onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,7 +133,8 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
         DropdownButton<String>(
           value: value,
           onChanged: (val) => onChanged(val!),
-          items: options.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+          items:
+              options.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
         ),
         const SizedBox(height: 10),
       ],

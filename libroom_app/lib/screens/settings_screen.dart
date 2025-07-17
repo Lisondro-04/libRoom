@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/settings_services.dart';
 import '../models/settings.dart';
+import '../widgets/sidebar_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -27,40 +28,118 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      body: FutureBuilder<Setting>(
-        future: _settingsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final setting = snapshot.data!;
-            return ListView(
-              padding: EdgeInsets.all(16),
+      body: Row(
+        children: [
+          const Sidebar(),
+          Expanded(
+            child: Column(
               children: [
-                _buildDropdown('Interface Language', setting.interfaceLanguage, interfaceLanguages, (val) => setting.interfaceLanguage = val!),
-                _buildDropdown('Interface Font', setting.interfaceFont, interfaceFonts, (val) => setting.interfaceFont = val!),
-                _buildDropdown('Interface Font Size', setting.interfaceFontSize.toString(), interfaceFontSizes, (val) => setting.interfaceFontSize = int.parse(val!)),
-                _buildDropdown('Project Save Location', setting.defaultProjectSaveLocation, projectSaveLocations, (val) => setting.defaultProjectSaveLocation = val!),
-                _buildDropdown('Auto-save Frequency', setting.autoSaveFrequency, autoSaveFrequencies, (val) => setting.autoSaveFrequency = val!),
-                _buildDropdown('Export Location', setting.defaultExportLocation, exportLocations, (val) => setting.defaultExportLocation = val!),
-                ElevatedButton(
-                  onPressed: () async {
-                    await _service.updateSettings(setting);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Settings updated!')));
-                  },
-                  child: Text('Save Changes'),
+                AppBar(
+                  title: const Text('Settings'),
+                  backgroundColor: Colors.deepPurple,
+                ),
+                Expanded(
+                  child: FutureBuilder<Setting>(
+                    future: _settingsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final setting = snapshot.data!;
+                        return ListView(
+                          padding: const EdgeInsets.all(16),
+                          children: [
+                            _buildDropdown(
+                              label: 'Interface Language',
+                              value: setting.interfaceLanguage,
+                              items: interfaceLanguages,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.interfaceLanguage = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Interface Font',
+                              value: setting.interfaceFont,
+                              items: interfaceFonts,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.interfaceFont = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Interface Font Size',
+                              value: setting.interfaceFontSize.toString(),
+                              items: interfaceFontSizes,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.interfaceFontSize = int.parse(val!);
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Project Save Location',
+                              value: setting.defaultProjectSaveLocation,
+                              items: projectSaveLocations,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.defaultProjectSaveLocation = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Auto-save Frequency',
+                              value: setting.autoSaveFrequency,
+                              items: autoSaveFrequencies,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.autoSaveFrequency = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Export Location',
+                              value: setting.defaultExportLocation,
+                              items: exportLocations,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.defaultExportLocation = val!;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () async {
+                                await _service.updateSettings(setting);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Settings updated!')),
+                                );
+                              },
+                              child: const Text('Save Changes'),
+                            ),
+                          ],
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  ),
                 ),
               ],
-            );
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          return Center(child: CircularProgressIndicator());
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildDropdown(String label, String value, List<String> items, ValueChanged<String?> onChanged) {
+  Widget _buildDropdown({
+    required String label,
+    required String value,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
