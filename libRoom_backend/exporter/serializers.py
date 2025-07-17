@@ -23,7 +23,7 @@ class BlockSeparatorsSerializer(serializers.Serializer):
 
 class ExportConfigSerializer(serializers.Serializer):
     format = serializers.ChoiceField(
-        choices=["pdf", "txt", "md", "docx", "odt"]
+        choices=["pdf", "txt", "md", "docx", "odt", "epub"]
     )
     include_chapters = serializers.BooleanField(default=True)
     include_scenes = serializers.BooleanField(default=True)

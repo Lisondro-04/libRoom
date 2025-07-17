@@ -8,14 +8,15 @@ class ExportService {
   ExportService(this.baseUrl);
 
   Future<void> exportProject(ExportOptions options) async {
+    final url = Uri.parse('$baseUrl/exporter/export/');
     final response = await http.post(
-      Uri.parse('$baseUrl/exporter/export/'),
+      url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(options.toJson()),
     );
 
     if (response.statusCode != 200) {
-      throw Exception('Failed to export project: ${response.body}');
+      throw Exception('Error en la exportación: ${response.body}');
     }
   }
 }
