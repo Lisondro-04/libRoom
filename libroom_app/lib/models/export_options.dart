@@ -6,8 +6,8 @@ class ExportOptions {
   final bool level2FolderText;
   final bool level1Text;
   final bool level2Text;
-  final String? tagFilter;
-  final String? statusFilter;
+  final String tagFilter;
+  final String statusFilter;
 
   ExportOptions({
     required this.exportTo,
@@ -17,46 +17,33 @@ class ExportOptions {
     this.level2FolderText = false,
     this.level1Text = false,
     this.level2Text = false,
-    this.tagFilter,
-    this.statusFilter,
+    this.tagFilter = '',
+    this.statusFilter = '',
   });
 
-  factory ExportOptions.fromJson(Map<String, dynamic> json) {
+  ExportOptions copyWith({
+    String? exportTo,
+    bool? level1FolderTitle,
+    bool? level1FolderText,
+    bool? level2FolderTitle,
+    bool? level2FolderText,
+    bool? level1Text,
+    bool? level2Text,
+    String? tagFilter,
+    String? statusFilter,
+  }) {
     return ExportOptions(
-      exportTo: json['export_to'],
-      level1FolderTitle: json['level1_folder_title'],
-      level1FolderText: json['level1_folder_text'],
-      level2FolderTitle: json['level2_folder_title'],
-      level2FolderText: json['level2_folder_text'],
-      level1Text: json['level1_text'],
-      level2Text: json['level2_text'],
-      tagFilter: json['tag_filter'],
-      statusFilter: json['status_filter'],
+      exportTo: exportTo ?? this.exportTo,
+      level1FolderTitle: level1FolderTitle ?? this.level1FolderTitle,
+      level1FolderText: level1FolderText ?? this.level1FolderText,
+      level2FolderTitle: level2FolderTitle ?? this.level2FolderTitle,
+      level2FolderText: level2FolderText ?? this.level2FolderText,
+      level1Text: level1Text ?? this.level1Text,
+      level2Text: level2Text ?? this.level2Text,
+      tagFilter: tagFilter ?? this.tagFilter,
+      statusFilter: statusFilter ?? this.statusFilter,
     );
   }
-ExportOptions copyWith({
-  String? exportTo,
-  bool? level1FolderTitle,
-  bool? level1FolderText,
-  bool? level2FolderTitle,
-  bool? level2FolderText,
-  bool? level1Text,
-  bool? level2Text,
-  String? tagFilter,
-  String? statusFilter,
-}) {
-  return ExportOptions(
-    exportTo: exportTo ?? this.exportTo,
-    level1FolderTitle: level1FolderTitle ?? this.level1FolderTitle,
-    level1FolderText: level1FolderText ?? this.level1FolderText,
-    level2FolderTitle: level2FolderTitle ?? this.level2FolderTitle,
-    level2FolderText: level2FolderText ?? this.level2FolderText,
-    level1Text: level1Text ?? this.level1Text,
-    level2Text: level2Text ?? this.level2Text,
-    tagFilter: tagFilter ?? this.tagFilter,
-    statusFilter: statusFilter ?? this.statusFilter,
-  );
-}
 
   Map<String, dynamic> toJson() {
     return {
