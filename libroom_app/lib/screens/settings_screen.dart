@@ -1,13 +1,9 @@
-// screens/settings_screen.dart
-
 import 'package:flutter/material.dart';
 import '../services/settings_services.dart';
 import '../models/settings.dart';
 import '../widgets/sidebar_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
-
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -15,6 +11,13 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final _service = SettingsService();
   late Future<Setting> _settingsFuture;
+
+  final interfaceLanguages = ['en-US', 'es-ES'];
+  final interfaceFonts = ['Lora', 'Roboto', 'Open Sans'];
+  final interfaceFontSizes = ['10', '12', '14', '16'];
+  final projectSaveLocations = ['Projects folder', 'Desktop', 'Documents'];
+  final autoSaveFrequencies = ['1 minute', '5 minutes', '10 minutes'];
+  final exportLocations = ['Exports folder', 'Desktop', 'Documents'];
 
   @override
   void initState() {
@@ -47,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             _buildDropdown(
                               label: 'Interface Language',
                               value: setting.interfaceLanguage,
-                              items: ['en-US', 'es-ES'],
+                              items: interfaceLanguages,
                               onChanged: (val) {
                                 setState(() {
                                   setting.interfaceLanguage = val!;
@@ -57,10 +60,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             _buildDropdown(
                               label: 'Interface Font',
                               value: setting.interfaceFont,
-                              items: ['Lora', 'Roboto'],
+                              items: interfaceFonts,
                               onChanged: (val) {
                                 setState(() {
                                   setting.interfaceFont = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Interface Font Size',
+                              value: setting.interfaceFontSize.toString(),
+                              items: interfaceFontSizes,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.interfaceFontSize = int.parse(val!);
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Project Save Location',
+                              value: setting.defaultProjectSaveLocation,
+                              items: projectSaveLocations,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.defaultProjectSaveLocation = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Auto-save Frequency',
+                              value: setting.autoSaveFrequency,
+                              items: autoSaveFrequencies,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.autoSaveFrequency = val!;
+                                });
+                              },
+                            ),
+                            _buildDropdown(
+                              label: 'Export Location',
+                              value: setting.defaultExportLocation,
+                              items: exportLocations,
+                              onChanged: (val) {
+                                setState(() {
+                                  setting.defaultExportLocation = val!;
                                 });
                               },
                             ),
@@ -108,14 +151,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               value: value,
               isExpanded: true,
               onChanged: onChanged,
-              items: items.map<DropdownMenuItem<String>>(
-                (String val) {
-                  return DropdownMenuItem<String>(
-                    value: val,
-                    child: Text(val),
-                  );
-                },
-              ).toList(),
+              items: items.map<DropdownMenuItem<String>>((String val) {
+                return DropdownMenuItem<String>(
+                  value: val,
+                  child: Text(val),
+                );
+              }).toList(),
             ),
           ),
         ],
