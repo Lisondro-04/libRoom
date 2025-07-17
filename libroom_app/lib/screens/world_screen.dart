@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class WorldIndexPage extends StatefulWidget {
-  const WorldIndexPage({super.key});
+class WorldScreen extends StatefulWidget {
+  const WorldScreen({super.key});
 
   @override
-  State<WorldIndexPage> createState() => _WorldIndexPageState();
+  State<WorldScreen> createState() => _WorldScreenState();
 }
 
-class _WorldIndexPageState extends State<WorldIndexPage> {
+class _WorldScreenState extends State<WorldScreen> {
   Map<String, dynamic> worldIndex = {};
 
   @override

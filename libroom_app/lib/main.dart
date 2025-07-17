@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'screens/project_screen.dart';
+import 'screens/world_screen.dart';
+import 'screens/editor_screen.dart';
+import 'screens/notes_screen.dart';
+import 'screens/export_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/preferences_screen.dart';
 
 void main() {
   runApp(const LibRoomApp());
@@ -11,12 +18,24 @@ class LibRoomApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
+        '/project': (context) => const CreateProjectScreen(),
+        '/world': (context) => const WorldScreen(),
+        '/editor': (context) => const EditorScreen(),
+        '/notes': (context) => const NotesScreen(),
+        '/export': (context) => const ExportScreen(),
+        '/settings': (context) => const SettingsScreen(),
+        '/preferences': (context) => const PreferencesScreen()
+      },
     );
   }
 }
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,10 +64,7 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     if (usuario == 'Rivaldo' && hash == _hashGuardado) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const HomePage()),
-      );
+        Navigator.pushReplacementNamed(context, '/project');
     } else {
       _mostrarDialogo('Usuario o contraseña incorrectos.');
     }
