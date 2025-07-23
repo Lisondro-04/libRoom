@@ -18,9 +18,8 @@ class PreferencesService {
     );
 
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      // Asumimos que el backend devuelve una lista con 1 item (por usuario)
-      return Preferences.fromJson(data[0]);
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return Preferences.fromJson(data);
     } else {
       throw Exception('Failed to load preferences');
     }
