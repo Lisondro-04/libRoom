@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 class ChapterCreateSerializer(serializers.Serializer):
+    base_path = serializers.CharField()
     title = serializers.CharField()
     label = serializers.IntegerField()
     setGoal = serializers.IntegerField()

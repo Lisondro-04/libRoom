@@ -10,7 +10,6 @@ from .serializers import (
 )
 from . import utils
 
-
 @extend_schema(
     summary="Obtener estructura del proyecto",
     tags=["Outline"],
@@ -18,8 +17,11 @@ from . import utils
 )
 class OutlineTreeView(APIView):
     def get(self, request):
+        base_path = request.query_params.get("base_path")
+        if not base_path:
+            return Response({"error": "Missing base_path"}, status=400)
         outline = []
-        root = utils.get_outline_root()
+        root = utils.get_outline_root(base_path)
 
         for chapter_dir in root.iterdir():
             if chapter_dir.is_dir():
@@ -44,6 +46,10 @@ class OutlineTreeView(APIView):
 )
 class CreateChapterView(APIView):
     def post(self, request):
+        base_path = request.query_params.get("base_path")
+        if not base_path:
+            return Response({"error": "Missing base_path"}, status=400)
+
         ser = ChapterCreateSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
 
