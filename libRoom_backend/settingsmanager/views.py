@@ -13,7 +13,11 @@ class SettingsView(APIView):
         responses={200: SettingsSerializer}
     )
     def get(self, request):
-        settings = utils.read_settings()
+        base_path = request.query_params.get("base_path")
+        if not base_path:
+            return Response({"error": "base_path es requerido"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        settings = utils.read_settings(base_path)
         return Response(settings, status=status.HTTP_200_OK)
 
     @extend_schema(
@@ -23,6 +27,10 @@ class SettingsView(APIView):
         responses={200: SettingsSerializer}
     )
     def put(self, request):
+        base_path = request.data.get("base_path")
+        if not base_path:
+            return Response({"error": "base_path es requerido"}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = SettingsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -32,7 +40,7 @@ class SettingsView(APIView):
         utils.validate_and_create_paths(updated_data)
 
         # Guardar en settings.json
-        utils.write_settings(updated_data)
+        utils.write_settings(base_path, updated_data)
         
         return Response({
             "success": True,

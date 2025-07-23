@@ -4,26 +4,38 @@ import threading
 
 lock = threading.Lock()
 
-SETTINGS_FILE_PATH = 'ruta_absoluta_a_tu_project.json'  # Cambia esto por la real
-
-def get_settings_file():
-    with open(SETTINGS_FILE_PATH, 'r', encoding='utf-8') as f:
+def get_settings_file(base_path):
+    """
+    Obtiene la ruta completa al settings.json del proyecto actual.
+    """
+    project_json_path = os.path.join(base_path, "project.json")
+    with open(project_json_path, 'r', encoding='utf-8') as f:
         project_data = json.load(f)
-        return project_data['settings_path']
+        # Retorna la ruta completa a settings.json
+        return os.path.join(base_path, project_data['settings_file'])
 
-def read_settings():
-    settings_path = get_settings_file()
+def read_settings(base_path):
+    """
+    Lee el settings.json del proyecto.
+    """
+    settings_path = get_settings_file(base_path)
     with lock:
         with open(settings_path, 'r', encoding='utf-8') as f:
             return json.load(f)
 
-def write_settings(data):
-    settings_path = get_settings_file()
+def write_settings(base_path, data):
+    """
+    Escribe en el settings.json del proyecto.
+    """
+    settings_path = get_settings_file(base_path)
     with lock:
         with open(settings_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=4)
+            json.dump(data, f, indent=4, ensure_ascii=False)
 
 def validate_and_create_paths(data):
+    """
+    Valida y crea las rutas de carpetas necesarias.
+    """
     paths = ['default_project_path', 'default_export_path', 'cloud_sync_path']
     for path_key in paths:
         path_value = data.get(path_key)
