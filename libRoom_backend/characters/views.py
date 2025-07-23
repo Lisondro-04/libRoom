@@ -65,6 +65,10 @@ class CharacterViewSet(
         ],
     )
     def create(self, request, *args, **kwargs):
+        base_path = Path(request.data.get("base_path", "")).resolve()
+        if not base_path.exist():
+            return Response({"error": "Invalid base_path"}, status=400)
+        
         ser = CharacterCreateSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
 
@@ -80,9 +84,9 @@ class CharacterViewSet(
             "type": data["type"],
             "path": str(Path("characters") / md_path.name),
         }
-        idx = self._index()
+        idx = utils._load_index(base_path)
         idx.append(new_meta)
-        self._save_index(idx)
+        utils._save_index(base_path, idx)
 
         return Response(new_meta, status=status.HTTP_201_CREATED)
 

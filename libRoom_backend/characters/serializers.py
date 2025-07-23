@@ -11,8 +11,10 @@ class CharacterMetaSerializer(serializers.Serializer):
 class CharacterCreateSerializer(serializers.Serializer):
     name = serializers.CharField()
     type = serializers.ChoiceField(choices=["main", "secondary"])
+    base_path = serializers.CharField()
 
 
 class SectionPatchSerializer(serializers.Serializer):
     section = serializers.CharField(help_text="Markdown section title to overwrite")
     content = serializers.CharField(help_text="New markdown body for that section")
+    base_path = serializers.CharField

@@ -21,14 +21,14 @@ def _project_root() -> Path:
     Example structure inside project.json
         {"project_root": "/absolute/path/to/my_novel"}
     """
-    with PROJECT_JSON.open(encoding="utf‑8") as fh:
+    with PROJECT_JSON.open(encoding="utf-8") as fh:
         cfg = json.load(fh)
 
     return Path(cfg["project_root"]).resolve()
 
 
-def _characters_dir() -> Path:
-    cdir = _project_root() / "characters"
+def _characters_dir(base_path: Path) -> Path:
+    cdir = base_path / "characters"
     cdir.mkdir(parents=True, exist_ok=True)
     return cdir
 
@@ -37,18 +37,21 @@ def _characters_dir() -> Path:
 # ───────── Persistent index: <project>/characters/character_list.json ────── #
 # --------------------------------------------------------------------------- #
 
-INDEX_FILE = _characters_dir() / "character_list.json"
+def _index_file(base_path: Path) -> Path:
+    return _characters_dir(base_path) / "character_list.json"
 
 
-def _load_index() -> List[Dict]:
-    if not INDEX_FILE.exists():
+def _load_index(base_path: Path) -> List[Dict]:
+    index_path =  _index_file(base_path)
+    if not index_path.exists():
         return []
-    with INDEX_FILE.open(encoding="utf‑8") as fh:
+    with index_path.open(encoding="utf-8") as fh:
         return json.load(fh)
 
 
-def _save_index(index: List[Dict]) -> None:
-    with INDEX_FILE.open("w", encoding="utf‑8") as fh:
+def _save_index(base_path: Path, index: List[Dict]) -> None:
+    index_path = _index_file(base_path)
+    with index_path.open("w", encoding="utf-8") as fh:
         json.dump(index, fh, indent=2, ensure_ascii=False)
 
 
@@ -70,7 +73,7 @@ def write_markdown_skeleton(char_path: Path, name: str, char_type: str) -> None:
 **Type:** {char_type}
 
 ## Background
-_(Describe the character’s past)_
+_(Describe the character's past)_
 
 ## Personality
 _(Key traits, quirks, fears…)_
@@ -78,7 +81,7 @@ _(Key traits, quirks, fears…)_
 ## Appearance
 _(Hair, eyes, clothes, etc.)_
 """
-    char_path.write_text(skeleton, encoding="utf‑8")
+    char_path.write_text(skeleton, encoding="utf-8")
 
 
 def replace_section(md: str, section: str, new_body: str) -> str:
