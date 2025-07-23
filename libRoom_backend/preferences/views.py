@@ -14,7 +14,10 @@ class PreferencesView(APIView):
         responses={200: PreferencesSerializer}
     )
     def get(self, request):
-        prefs = read_preferences()
+        base_path = request.query_parms.get("base_path")
+        if not base_path:
+            return Response({"error": "Missing base_path"}, status=400)
+        prefs = read_preferences(base_path)
         return Response(prefs)
 
     @extend_schema(
@@ -24,10 +27,14 @@ class PreferencesView(APIView):
         responses={200: PreferencesSerializer}
     )
     def put(self, request):
+        base_path = request.query_parms.get("base_path")
+        if not base_path:
+            return Response({"error": "Missing base_path"}, status=400)
+        
         serializer = PreferencesSerializer(data=request.data)
         if serializer.is_valid():
             data = serializer.validated_data
-            write_preferences(data)
-            update_total_words_goal_in_project(data['total_words_goal'])
+            write_preferences(base_path, data)
+            update_total_words_goal_in_project(base_path, data['total_words_goal'])
             return Response(data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
