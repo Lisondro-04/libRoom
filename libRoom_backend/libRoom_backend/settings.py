@@ -14,12 +14,12 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-PROJECTS_BASE_DIR = BASE_DIR / "user" / "projects"
-CURRENT_PROJECT_PATH = PROJECTS_BASE_DIR / "current"
+
+CURRENT_PROJECT_PATH = BASE_DIR / "current"
 PROJECT_JSON_PATH = CURRENT_PROJECT_PATH / "project.json"
 
 CURRENT_PROJECT_PATH = str (CURRENT_PROJECT_PATH)
-# para importar from libRoom_backend.settings import PROJECT_JSON_PATH
+# para importar from libRoom_backend.settings import PROJECT_JSON_PATH, creo que esto no funciona # PROJECTS_BASE_DIR = BASE_DIR / "user" / "projects"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/

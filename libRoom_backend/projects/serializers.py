@@ -7,6 +7,7 @@ class ProjectCreationSerializer(serializers.Serializer):
     number_of_chapters = serializers.IntegerField()
     scenes_by_chapter = serializers.IntegerField()
     words_by_scene = serializers.IntegerField()
+    directory_path = serializers.CharField(required=False)
 
 
 class ProjectSerializer(serializers.Serializer):
@@ -26,8 +27,8 @@ class ProjectSerializer(serializers.Serializer):
     summary_file = serializers.CharField()
     tags_file = serializers.CharField()
     plots_file = serializers.CharField()
-    total_words_goal = serializers.CharField()
-    words_by_scene = serializers.CharField()
-    words_by_chapter = serializers.CharField()
-    number_of_chapters = serializers.CharField()
+    total_words_goal = serializers.IntegerField()
+    words_by_scene = serializers.IntegerField()
+    words_by_chapter = serializers.IntegerField()
+    number_of_chapters = serializers.IntegerField()
     scenes_by_chapter = serializers.CharField()

@@ -3,15 +3,8 @@ import json
 from datetime import datetime
 from pathlib import Path
 
-
-
-BASE_DIR = Path(__file__).resolve().parent / 'storage'
-INDEX_PATH = BASE_DIR / 'notes_index.json'
-
-
-if not BASE_DIR.exists():
-    BASE_DIR.mkdir(parents=True, exist_ok=True)
-
+BASE_DIR = Path(__file__).resolve().parent
+INDEX_PATH = BASE_DIR / 'notes'/'notes_index.json'
 
 def load_index():
     if not INDEX_PATH.exists() or INDEX_PATH.stat().st_size == 0:
@@ -19,6 +12,7 @@ def load_index():
         save_index({"notes": []})
     with open(INDEX_PATH, 'r', encoding='utf-8') as f:
         return json.load(f)
+    # if not BASE_DIR.exists(): BASE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def save_index(data):

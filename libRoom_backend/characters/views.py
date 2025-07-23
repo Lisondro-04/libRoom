@@ -13,7 +13,6 @@ from .serializers import (
 )
 from . import utils
 
-
 class CharacterViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
@@ -21,7 +20,7 @@ class CharacterViewSet(
     viewsets.GenericViewSet,
 ):
     """
-    File‑backed Characters.
+    File-backed Characters.
 
     All operations touch files inside `<project>/characters`.
     """
@@ -109,9 +108,9 @@ class CharacterViewSet(
         content = ser.validated_data["content"]
 
         md_abs = utils._characters_dir() / Path(char_meta["path"]).name
-        md_text = md_abs.read_text(encoding="utf‑8")
+        md_text = md_abs.read_text(encoding="utf-8")
         md_text = utils.replace_section(md_text, section, content)
-        md_abs.write_text(md_text, encoding="utf‑8")
+        md_abs.write_text(md_text, encoding="utf-8")
 
         return Response(char_meta)
 

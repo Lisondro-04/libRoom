@@ -22,6 +22,9 @@ class BlockSeparatorsSerializer(serializers.Serializer):
     between_scenes = serializers.CharField(default="\n\n")
 
 class ExportConfigSerializer(serializers.Serializer):
+    base_path = serializers.CharField(
+        help_text="Ruta absoluta al directorio raíz del proyecto"
+    )
     format = serializers.ChoiceField(
         choices=["pdf", "txt", "md", "docx", "odt", "epub"]
     )
@@ -34,6 +37,7 @@ class ExportConfigSerializer(serializers.Serializer):
     text_transformations = ExportTextTransformationsSerializer(required=False)
     block_separators = BlockSeparatorsSerializer(required=False)
     include_toc = serializers.BooleanField(default=False)
+
 
 class ExportResponseSerializer(serializers.Serializer):
     success = serializers.BooleanField()
