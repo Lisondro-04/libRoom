@@ -12,6 +12,7 @@ class SceneDetailSerializer(serializers.Serializer):
     content =  serializers.CharField()
 
 class SceneUpdateSerializer(serializers.Serializer):
+    base_path = serializers.CharField()
     title = serializers.CharField(required=False)
     POV = serializers.CharField(required=False)
     status = serializers.CharField(required=False)
@@ -23,8 +24,10 @@ class SceneUpdateSerializer(serializers.Serializer):
     content =  serializers.CharField(required=False)
 
 class GoalUpdateSerializer(serializers.Serializer):
+    base_path = serializers.CharField()
     setGoal = serializers.IntegerField()
 
 class RenameSerializer(serializers.Serializer):
+    base_path = serializers.CharField()
     old_id = serializers.CharField()
     new_title = serializers.CharField()
