@@ -8,7 +8,7 @@ class ProjectService {
   Future<bool> createProject(Project project) async {
     final response = await http.post(
       Uri.parse('$baseUrl/project/create'),
-      headers: {'Content-Type': 'applications/json'},
+      headers: {'Content-Type': 'application/json'},
       body: jsonEncode(project.toJson()),
     );
     return response.statusCode == 201;
