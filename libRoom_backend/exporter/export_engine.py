@@ -1,4 +1,3 @@
-from django.conf import settings
 from pathlib import Path
 import os
 import json
@@ -10,7 +9,7 @@ from .utils import (
 )
 
 def export_project(config):
-    project_root = Path(settings.CURRENT_PROJECT_PATH)
+    project_root = Path(config["base_path"]).expanduser().resolve()
 
     # load project metadata
     with open(os.path.join(project_root, "project.json"), encoding="utf-8") as f:

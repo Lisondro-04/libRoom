@@ -9,3 +9,4 @@ class WorldIndexSerializer(serializers.Serializer):
 class NewEntrySerializer(serializers.Serializer):
     title = serializers.CharField()
     category = serializers.CharField()
+    base_path = serializers.CharField(help_text="Ruta base del proyecto donde buscar project.json")

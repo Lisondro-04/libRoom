@@ -7,11 +7,13 @@ from .serializers import WorldIndexSerializer, NewEntrySerializer
 from .world_manager import WorldManager
 import json
 
-def get_world_manager():
+def get_world_manager(base_path=None):
+    if not base_path:
+        return None
     try:
-        return WorldManager()
+        return WorldManager(base_path)
     except FileNotFoundError:
-        return None  # o lanza un error más amigable si prefieres
+        return None
 
 class WorldIndexView(APIView):
 
@@ -20,7 +22,8 @@ class WorldIndexView(APIView):
         responses={200: WorldIndexSerializer}
     )
     def get(self, request):
-        wm = get_world_manager()
+        base_path = request.query_params.get("base_path")
+        wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
         index = wm.get_index()
@@ -31,7 +34,10 @@ class WorldIndexView(APIView):
         responses={201: WorldIndexSerializer}
     )
     def post(self, request):
-        wm = WorldManager()  # Aquí sí está bien crearlo
+        base_path = request.data.get("base_path")
+        if not base_path:
+            return Response({"detail": "base_path is required"}, status=400)
+        wm = WorldManager(base_path) 
         wm.ensure_structure()
         return Response(wm.get_index(), status=status.HTTP_201_CREATED)
 
@@ -43,7 +49,8 @@ class WorldAddEntryView(APIView):
         responses={201: WorldIndexSerializer}
     )
     def post(self, request):
-        wm = get_world_manager()
+        base_path = request.data.get("base_path")
+        wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
 
@@ -64,7 +71,8 @@ class WorldEntryDetailView(APIView):
         responses={200: OpenApiTypes.STR}
     )
     def get(self, request, category, id):
-        wm = get_world_manager()
+        base_path = request.data.get("base_path")
+        wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
 
@@ -79,7 +87,8 @@ class WorldEntryDetailView(APIView):
         responses={204: None}
     )
     def delete(self, request, category, id):
-        wm = get_world_manager()
+        base_path = request.data.get("base_path")
+        wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
 
@@ -97,7 +106,8 @@ class WorldEntrySectionEditView(APIView):
         responses={200: OpenApiTypes.STR}
     )
     def patch(self, request, category, id):
-        wm = get_world_manager()
+        base_path = request.data.get("base_path")
+        wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
 

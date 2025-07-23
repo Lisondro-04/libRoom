@@ -1,11 +1,11 @@
 import os, json, re
-from django.conf import settings
 import textwrap
 
 class WorldManager:
 
-    def __init__(self):
-        self.project_json_path = settings.PROJECT_JSON_PATH
+    def __init__(self, base_path):
+        self.base_path = base_path
+        self.project_json_path = os.path.join(base_path, "project.json")
         self.world_root = self._get_world_path()
         self.index_path = os.path.join(self.world_root, 'world.json')
         self.ensure_structure()
@@ -15,7 +15,7 @@ class WorldManager:
             raise FileNotFoundError("No se encontró project.json")
         with open(self.project_json_path, 'r', encoding='utf-8') as f:
             project_data = json.load(f)
-        return os.path.join(settings.CURRENT_PROJECT_PATH, project_data.get("world_path", "world"))
+        return os.path.join(self.base_path, project_data.get("world_path", "world"))
 
     def ensure_structure(self):
         # create base folder if it don't exist
