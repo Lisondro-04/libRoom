@@ -8,7 +8,7 @@ class ExportService {
   ExportService(this.baseUrl);
 
   Future<void> exportProject(ExportOptions options) async {
-    final url = Uri.parse('$baseUrl/exporter/export/');
+    final url = Uri.parse('$baseUrl/api/export/');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
