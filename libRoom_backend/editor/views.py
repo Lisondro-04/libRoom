@@ -2,18 +2,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
-from .serializers  import SceneDetailSerializer, SceneUpdateSerializer, GoalUpdateSerializer, RenameSerializer
+from .serializers  import SceneDetailSerializer, SceneUpdateSerializer, GoalUpdateSerializer, RenameSerializer, RenameResponseSerializer
 from .utils import read_scene_file, write_scene_file, get_scene_path_by_id
 
 import os
 
-@extend_schema(
+class SceneRetrieView(APIView):
+    @extend_schema(
     summary="Obtener una escena por ID",
     responses={200: SceneDetailSerializer},
     tags=["Editor"]
 )
-
-class SceneRetrieView(APIView):
     def get(self, request, scene_id):
         base_path = request.query_params.get("base_path")
         if not base_path:
@@ -23,15 +22,15 @@ class SceneRetrieView(APIView):
             return Response({"error": "Scene was not found"}, status=404)
         data = read_scene_file(path)
         return Response(data)
-    
-@extend_schema(
+
+
+class SceneUpdateView(APIView):
+    @extend_schema(
     summary="Actualizar contenido y metadatos de una escena.",
     request=SceneUpdateSerializer,
     responses={200: SceneDetailSerializer},
     tags=["Editor"]
 )
-
-class SceneUpdateView(APIView):
     def patch(self, request, scene_id):
         base_path = request.query_params.get("base_path")
         if not base_path:
@@ -47,14 +46,14 @@ class SceneUpdateView(APIView):
         write_scene_file(path, data)
         return Response(data)
     
-@extend_schema(
+
+class SceneGoalUpdateView(APIView):
+    @extend_schema(
     summary="Actualizar objetivo de palabras",
     request=GoalUpdateSerializer, 
     responses={200: SceneDetailSerializer},
     tags=["Editor"]
 )
-
-class SceneGoalUpdateView(APIView):
     def patch(self, request, scene_id):
         base_path = request.query_params.get("base_path")
         if not base_path:
@@ -62,19 +61,20 @@ class SceneGoalUpdateView(APIView):
         
         path = get_scene_path_by_id(scene_id, base_path)
         if not path:
-            return Response({"eror": "Scene not found"}, status=404)
+            return Response({"error": "Scene not found"}, status=404)
         data = read_scene_file(path)
         data['setGoal'] = request.data['setGoal']
         write_scene_file(path, data)
         return Response(data)
     
-@extend_schema(
-    summary="Renombrar escena",
-    request=RenameSerializer,
-    tags=["Editor"]
-)
 
 class RenameSceneView(APIView):
+    @extend_schema(
+    summary="Renombrar escena",
+    request=RenameSerializer,
+    responses={200: RenameResponseSerializer},
+    tags=["Editor"]
+)
     def patch(self, request):
         base_path = request.query_params.get("base_path")
         if not base_path:

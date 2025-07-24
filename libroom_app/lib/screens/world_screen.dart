@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../widgets/sidebar_widget.dart';
+import '../globals.dart';
 
 class WorldScreen extends StatefulWidget {
   const WorldScreen({super.key});
@@ -19,7 +21,8 @@ class _WorldScreenState extends State<WorldScreen> {
   }
 
   Future<void> _loadIndex() async {
-    final res = await http.get(Uri.parse('https://127.0.0.1:8000/api/world/'));
+    final res = await http.get(
+      Uri.parse('http://127.0.0.1:8000/api/world/?base_path=$basePath'));
     if (res.statusCode == 200) {
       if (!mounted) return; // <-- Protección
       setState(() {
@@ -29,7 +32,11 @@ class _WorldScreenState extends State<WorldScreen> {
   }
 
   Future<void> _createIndex() async {
-    final res = await http.post(Uri.parse('https://miapi.com/api/world/'));
+    final res = await http.post(
+      Uri.parse('http://127.0.0.1:8000/api/world/'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'base_path': basePath}),
+      );
     if (res.statusCode == 201 || res.statusCode == 200) {
       if (!mounted) return; // <-- Protección
       await _loadIndex();
@@ -37,7 +44,7 @@ class _WorldScreenState extends State<WorldScreen> {
   }
 
   Future<void> _deleteEntry(String category, String id) async {
-    final res = await http.delete(Uri.parse('https://miapi.com/api/world/$category/$id/'));
+    final res = await http.delete(Uri.parse('http://127.0.0.1:8000/api/world/$category/$id/?base_path=$basePath'));
     if (res.statusCode == 204) {
       if (!mounted) return; // <-- Protección
       await _loadIndex();
@@ -78,7 +85,11 @@ class _WorldScreenState extends State<WorldScreen> {
           ),
         ],
       ),
-      body: worldIndex.isEmpty
+body: Row(
+  children: [
+    const Sidebar(), // <- El widget de la barra lateral
+    Expanded(
+      child: worldIndex.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(12),
@@ -103,6 +114,10 @@ class _WorldScreenState extends State<WorldScreen> {
                 ];
               }).toList(),
             ),
+    ),
+  ],
+),
+
     );
   }
 }
@@ -121,11 +136,12 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
   Future<void> _submit() async {
     final res = await http.post(
-      Uri.parse('https://miapi.com/api/world/add/'),
+      Uri.parse('http://127.0.0.1:8000/api/world/add/'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'title': _titleController.text,
         'category': _selectedCategory,
+        'base_path': basePath,
       }),
     );
     if (res.statusCode == 201) {
@@ -187,7 +203,7 @@ class _EditSectionPageState extends State<EditSectionPage> {
   final _sectionNameController = TextEditingController(text: 'Description');
 
   Future<void> _loadSection() async {
-    final res = await http.get(Uri.parse('https://miapi.com/api/world/${widget.category}/${widget.id}/'));
+    final res = await http.get(Uri.parse('hhttp://127.0.0.1:8000/api/world/${widget.category}/${widget.id}/?base_path=$basePath'));
     if (res.statusCode == 200) {
       if (!mounted) return; // <-- Protección
       _sectionController.text = res.body;
@@ -196,12 +212,13 @@ class _EditSectionPageState extends State<EditSectionPage> {
 
   Future<void> _saveSection() async {
     await http.patch(
-      Uri.parse('https://miapi.com/api/world/${widget.category}/${widget.id}/section/'),
+      Uri.parse('http://127.0.0.1:8000/api/world/${widget.category}/${widget.id}/section/?base_path=$basePath'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'title': _sectionNameController.text,
         'category': widget.category,
         'content': _sectionController.text,
+        'base_path': basePath,
       }),
     );
   }

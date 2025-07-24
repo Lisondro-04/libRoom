@@ -2,5 +2,5 @@ from django.urls import path
 from .views import ExportProjectView
 
 urlpatterns = [
-    path('api/export/', ExportProjectView.as_view(), name='export'),
+    path('export/', ExportProjectView.as_view(), name='export'),
 ]

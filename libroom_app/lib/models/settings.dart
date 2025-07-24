@@ -5,6 +5,7 @@ class Setting {
   String defaultProjectSaveLocation;
   String autoSaveFrequency;
   String defaultExportLocation;
+  String? basePath;
 
   Setting({
     required this.interfaceLanguage,
@@ -13,6 +14,7 @@ class Setting {
     required this.defaultProjectSaveLocation,
     required this.autoSaveFrequency,
     required this.defaultExportLocation,
+    this.basePath,
   });
 
   factory Setting.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class Setting {
       defaultProjectSaveLocation: json['default_project_save_location'],
       autoSaveFrequency: json['auto_save_frequency'],
       defaultExportLocation: json['default_export_location'],
+      basePath: json['base_path'],
     );
   }
 
@@ -34,6 +37,7 @@ class Setting {
       'default_project_save_location': defaultProjectSaveLocation,
       'auto_save_frequency': autoSaveFrequency,
       'default_export_location': defaultExportLocation,
+      'base_path': basePath,
     };
   }
 }

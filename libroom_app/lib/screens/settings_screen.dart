@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/settings_services.dart';
 import '../models/settings.dart';
 import '../widgets/sidebar_widget.dart';
+import '../globals.dart' as globals;
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -110,6 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             const SizedBox(height: 20),
                             ElevatedButton(
                               onPressed: () async {
+                                setting.basePath = globals.basePath;
                                 await _service.updateSettings(setting);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text('Settings updated!')),

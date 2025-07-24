@@ -9,6 +9,7 @@ class Preferences {
   final bool showLateralMenu;
   final bool spellCheck;
   final bool globalTips;
+  final String? basePath;
 
   Preferences({
     required this.theme,
@@ -21,6 +22,7 @@ class Preferences {
     required this.showLateralMenu,
     required this.spellCheck,
     required this.globalTips,
+    this.basePath,
   });
 
   factory Preferences.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class Preferences {
       showLateralMenu: json['show_lateral_menu'],
       spellCheck: json['spell_check'],
       globalTips: json['global_tips'],
+      basePath:  json['base_path'],
     );
   }
   Preferences copyWith({
@@ -48,6 +51,7 @@ class Preferences {
     bool? showLateralMenu,
     bool? spellCheck,
     bool? globalTips,
+    String? basePath,
   }) {
     return Preferences(
       theme: theme ?? this.theme,
@@ -60,6 +64,7 @@ class Preferences {
       showLateralMenu: showLateralMenu ?? this.showLateralMenu,
       spellCheck: spellCheck ?? this.spellCheck,
       globalTips: globalTips ?? this.globalTips,
+      basePath: basePath ?? this.basePath,
     );
   }
 
@@ -75,6 +80,7 @@ class Preferences {
       'show_lateral_menu': showLateralMenu,
       'spell_check': spellCheck,
       'global_tips': globalTips,
+      'base_path': basePath,
     };
   }
 }

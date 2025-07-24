@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:libroom_app/globals.dart';
 import 'dart:convert';
 import '../widgets/sidebar_widget.dart';
+import '../globals.dart' as globals;
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -23,7 +25,7 @@ class _NotesPageState extends State<NotesScreen> {
   }
 
   Future<void> fetchNotes() async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/notes/'));
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/notes/?base_path=$basePath'));
     if (response.statusCode == 200) {
       setState(() {
         notes = json.decode(response.body);
@@ -33,7 +35,7 @@ class _NotesPageState extends State<NotesScreen> {
   }
 
   Future<void> fetchNoteContent(String id) async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/notes/$id/'));
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/notes/$id/?base_path=$basePath'));
     if (response.statusCode == 200) {
       setState(() {
         selectedNoteId = id;
@@ -43,7 +45,7 @@ class _NotesPageState extends State<NotesScreen> {
   }
 
   Future<void> deleteNote(String id) async {
-    await http.delete(Uri.parse('http://127.0.0.1:8000/api/notes/$id/'));
+    await http.delete(Uri.parse('http://127.0.0.1:8000/api/notes/$id/?base_path=$basePath'));
     fetchNotes();
     setState(() {
       selectedNoteId = null;
@@ -58,7 +60,8 @@ class _NotesPageState extends State<NotesScreen> {
       body: json.encode({
         'title': 'Nueva nota',
         'linked_to': null,
-        'content': ''
+        'content': '',
+        'base_path': basePath
       }),
     );
     if (response.statusCode == 201) {

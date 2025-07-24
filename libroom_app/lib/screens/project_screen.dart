@@ -3,7 +3,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../models/project_model.dart';
 import '../services/project_services.dart';
-import '../widgets/sidebar_widget.dart'; 
+import '../widgets/sidebar_widget.dart';
+import '../globals.dart' as globals;
 
 class CreateProjectScreen extends StatefulWidget {
   const CreateProjectScreen({super.key});
@@ -15,16 +16,17 @@ class CreateProjectScreen extends StatefulWidget {
 class _CreateProjectScreenState extends State<CreateProjectScreen> {
   final _service = ProjectService();
 
-  String selectedTemplate = 'Prose';
+  String selectedTemplate = '';
   String type = '';
   int chapters = 1;
   int scenes = 1;
   int wordsPerScene = 100;
   int totalWords = 100;
-  String? lastDirectory;
 
-  final _title = "My Project";
-  final _author = "Anonymous";
+  String? basePath; // Ruta base seleccionada por usuario (sin nombre del proyecto aún)
+  String projectName = ''; // Nombre del proyecto ingresado por el usuario
+
+  final _titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,44 +35,70 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     return Scaffold(
       body: Row(
         children: [
-          const Sidebar(), 
+          const Sidebar(),
 
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 50),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Center(
-                    child: Text(
-                      'Create a new project',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Create a new project',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 58),
-                  Text('Pick a template', style: TextStyle(fontSize: 18)),
-                  const SizedBox(height: 10),
-                  templateButton('Prose', ''),
-                  templateButton('Tale', 'short_story'),
-                  templateButton('Novel', 'novel'),
-                  const SizedBox(height: 30),
-                  if (type != '') statisticsEditor(),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        onPressed: openFile,
-                        child: const Text('Open File'),
+                    const SizedBox(height: 58),
+                    const Text(
+                      'Select Project Type',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    templateButton('Tale', 'short_story'),
+                    templateButton('Novel', 'novel'),
+                    const SizedBox(height: 30),
+                    if (type != '') statisticsEditor(),
+                    const SizedBox(height: 30),
+
+                    // Input para nombre del proyecto (solo visible si tipo seleccionado)
+                    if (type != '')
+                      TextField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                          labelText: 'Project Name',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+                            projectName = val.trim();
+                          });
+                        },
                       ),
-                      const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: createProject,
-                        child: const Text('Create'),
+                    if (type != '') const SizedBox(height: 20),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          onPressed: openProject,
+                          child: const Text('Open File'),
+                        ),
+                        const SizedBox(width: 20),
+                        ElevatedButton(
+                          onPressed: createProject,
+                          child: const Text('Create'),
+                        ),
+                      ],
+                    ),
+                    if (basePath != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text('Selected base folder: $basePath'),
                       ),
-                    ],
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -86,6 +114,8 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
         setState(() {
           selectedTemplate = name;
           type = value;
+          projectName = '';
+          _titleController.clear();
         });
       },
       child: Container(
@@ -147,52 +177,78 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
     );
   }
 
-  Future<void> openFile() async {
+  Future<void> openProject() async {
     final result = await FilePicker.platform.getDirectoryPath();
     if (result != null) {
-      lastDirectory = result;
+      basePath = result;
+      globals.basePath = result;
 
       final settingsFile = File('$result/settings.json');
       final prefsFile = File('$result/preferences.json');
 
       if (await settingsFile.exists()) {
         final content = await settingsFile.readAsString();
-        final data = content.isNotEmpty ? content : '{}';
-        print("Settings: $data");
+        print("Settings: $content");
       }
       if (await prefsFile.exists()) {
         final content = await prefsFile.readAsString();
-        final data = content.isNotEmpty ? content : '{}';
-        print("Preferences: $data");
+        print("Preferences: $content");
       }
+
+      setState(() {});
     }
   }
 
   Future<void> createProject() async {
+    if (projectName.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter a project name")),
+      );
+      return;
+    }
+
+    // Pido seleccionar la carpeta base donde crear el proyecto
+    final selectedDir = await FilePicker.platform.getDirectoryPath();
+    if (selectedDir == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please select a folder to create the project")),
+      );
+      return;
+    }
+
+    final newProjectPath = '$selectedDir/$projectName';
+    final dir = Directory(newProjectPath);
+
+    if (await dir.exists()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("A project with that name already exists in this location")),
+      );
+      return;
+    }
+
     final project = Project(
-      title: _title,
-      author: _author,
+      title: projectName,
+      author: "Anonymous",
       type: type,
       numberOfChapters: chapters,
       scenesByChapter: scenes,
       wordsByScene: wordsPerScene,
+      basePath: newProjectPath,
     );
 
     final success = await _service.createProject(project);
 
     if (success) {
-      final settings = await _service.getSettings();
-      final preferences = await _service.getPreferences();
-
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Proyecto creado con éxito")),
+        const SnackBar(content: Text("Project created successfully")),
       );
-
-      print("Settings: $settings");
-      print("Preferences: $preferences");
+      setState(() {
+        basePath = newProjectPath;
+        globals.basePath = newProjectPath;
+      });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Error al crear proyecto")),
+        const SnackBar(content: Text("Error creating project")),
       );
     }
   }

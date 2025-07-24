@@ -8,6 +8,7 @@ class ExportOptions {
   final bool level2Text;
   final String tagFilter;
   final String statusFilter;
+  final String? basePath;
 
   ExportOptions({
     required this.exportTo,
@@ -19,6 +20,7 @@ class ExportOptions {
     this.level2Text = false,
     this.tagFilter = '',
     this.statusFilter = '',
+    this.basePath,
   });
 
   ExportOptions copyWith({
@@ -31,6 +33,7 @@ class ExportOptions {
     bool? level2Text,
     String? tagFilter,
     String? statusFilter,
+    String? basePath,
   }) {
     return ExportOptions(
       exportTo: exportTo ?? this.exportTo,
@@ -42,6 +45,7 @@ class ExportOptions {
       level2Text: level2Text ?? this.level2Text,
       tagFilter: tagFilter ?? this.tagFilter,
       statusFilter: statusFilter ?? this.statusFilter,
+      basePath: basePath ?? this.basePath,
     );
   }
 
@@ -56,6 +60,7 @@ class ExportOptions {
       'level2_text': level2Text,
       'tag_filter': tagFilter,
       'status_filter': statusFilter,
+      'base_path': basePath,
     };
   }
 }

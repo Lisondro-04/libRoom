@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/preferences.dart';
 import '../services/preferences_services.dart';
 import '../widgets/sidebar_widget.dart';
+import '../globals.dart' as globals;
 
 class PreferencesScreen extends StatefulWidget {
   final PreferencesService service;
@@ -36,7 +37,8 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
 
   void _save() async {
     if (_prefs != null) {
-      await widget.service.updatePreferences(1, _prefs!);
+      final updatePrefs = _prefs!.copyWith(basePath: globals.basePath);
+      await widget.service.updatePreferences(1, updatePrefs);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Preferences updated')),
       );

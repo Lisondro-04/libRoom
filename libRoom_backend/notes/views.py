@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from drf_spectacular.utils import extend_schema
+from pathlib import Path
 from datetime import datetime
 from .serializers import NoteSerializer
 from . import utils

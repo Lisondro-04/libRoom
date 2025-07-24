@@ -47,7 +47,9 @@ class CharacterViewSet(
     # --------------------------------------------------------------------- #
     def list(self, request, *args, **kwargs):
         return Response(self._index())
-
+    @extend_schema(parameters=[
+    OpenApiParameter("id", str, OpenApiParameter.PATH)
+])
     def retrieve(self, request, *args, **kwargs):
         return Response(self._find(kwargs["id"]))
 

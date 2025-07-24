@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound, ValidationError
 from drf_spectacular.utils import extend_schema, OpenApiTypes
-from .serializers import WorldIndexSerializer, NewEntrySerializer
+from .serializers import WorldIndexSerializer, NewEntrySerializer, SectionEditSerializer
 from .world_manager import WorldManager
 import json
 
@@ -15,10 +15,12 @@ def get_world_manager(base_path=None):
     except FileNotFoundError:
         return None
 
-class WorldIndexView(APIView):
-
+class WorldIndexView(APIView): 
+    serializer_class = WorldIndexSerializer 
     @extend_schema(
+        operation_id="get_world_index",
         summary="Obtener world.json índice",
+        request=NewEntrySerializer,
         responses={200: WorldIndexSerializer}
     )
     def get(self, request):
@@ -34,7 +36,7 @@ class WorldIndexView(APIView):
         responses={201: WorldIndexSerializer}
     )
     def post(self, request):
-        base_path = request.data.get("base_path")
+        base_path = request.query_params.get("base_path")
         if not base_path:
             return Response({"detail": "base_path is required"}, status=400)
         wm = WorldManager(base_path) 
@@ -49,7 +51,7 @@ class WorldAddEntryView(APIView):
         responses={201: WorldIndexSerializer}
     )
     def post(self, request):
-        base_path = request.data.get("base_path")
+        base_path = request.query_params.get("base_path")
         wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
@@ -67,11 +69,12 @@ class WorldAddEntryView(APIView):
 class WorldEntryDetailView(APIView):
 
     @extend_schema(
+        operation_id="get_world_entry",
         summary="Obtener contenido markdown de un archivo específico",
         responses={200: OpenApiTypes.STR}
     )
     def get(self, request, category, id):
-        base_path = request.data.get("base_path")
+        base_path = request.query_params.get("base_path")
         wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
@@ -87,7 +90,7 @@ class WorldEntryDetailView(APIView):
         responses={204: None}
     )
     def delete(self, request, category, id):
-        base_path = request.data.get("base_path")
+        base_path = request.query_params.get("base_path")
         wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")
@@ -102,11 +105,11 @@ class WorldEntrySectionEditView(APIView):
 
     @extend_schema(
         summary="Editar sección específica de un archivo markdown",
-        request=NewEntrySerializer,  # deberías definir un serializer aquí
+        request=SectionEditSerializer,
         responses={200: OpenApiTypes.STR}
     )
     def patch(self, request, category, id):
-        base_path = request.data.get("base_path")
+        base_path = request.query_params.get("base_path")
         wm = get_world_manager(base_path)
         if not wm:
             raise NotFound("No se encontró project.json")

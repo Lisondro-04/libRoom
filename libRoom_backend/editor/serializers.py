@@ -31,3 +31,7 @@ class RenameSerializer(serializers.Serializer):
     base_path = serializers.CharField()
     old_id = serializers.CharField()
     new_title = serializers.CharField()
+
+class RenameResponseSerializer(serializers.Serializer):
+    message = serializers.CharField()
+    new_path = serializers.CharField()

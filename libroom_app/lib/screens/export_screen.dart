@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/export_options.dart';
 import '../services/export_services.dart';
 import '../widgets/sidebar_widget.dart'; 
+import '../globals.dart' as globals;
 
 class ExportScreen extends StatefulWidget {
   const ExportScreen({super.key});
@@ -11,11 +12,12 @@ class ExportScreen extends StatefulWidget {
 }
 
 class _ExportScreenState extends State<ExportScreen> {
-  ExportOptions _options = ExportOptions(exportTo: 'txt');
+  ExportOptions _options = ExportOptions(exportTo: 'txt',);
   final _service = ExportService('http://127.0.0.1:8000'); 
   Future<void> _submitExport() async {
     try {
-      await _service.exportProject(_options);
+      final exportOptions = _options.copyWith(basePath: globals.basePath);
+      await _service.exportProject(exportOptions);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Exportación exitosa')),
       );

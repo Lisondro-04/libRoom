@@ -5,6 +5,7 @@ class Project {
   final int numberOfChapters;
   final int scenesByChapter;
   final int wordsByScene;
+  final String basePath;
 
   Project({
     required this.title,
@@ -13,6 +14,7 @@ class Project {
     required this.numberOfChapters,
     required this.scenesByChapter,
     required this.wordsByScene,
+    required this.basePath,
   });
 
   Map<String, dynamic> toJson()=>{
@@ -22,6 +24,7 @@ class Project {
     'number_of_chapters': type == 'novel' ? numberOfChapters : 1,
     'scenes_by_chapter': scenesByChapter,
     'words_by_scene': wordsByScene,
+    'base_path': basePath,
     'series': 'Untitled Series',
     'volume': '1',
     'license': 'CC-BY0',

@@ -6,7 +6,7 @@ import 'screens/world_screen.dart';
 import 'screens/editor_screen.dart';
 import 'screens/notes_screen.dart';
 import 'screens/export_screen.dart';
-//import 'screens/settings_screen.dart';
+import 'screens/settings_screen.dart';
 //import 'screens/preferences_screen.dart';
 
 void main() {
@@ -29,7 +29,7 @@ class LibRoomApp extends StatelessWidget {
         '/editor': (context) => const EditorScreen(),
         '/notes': (context) => const NotesScreen(),
         '/export': (context) => const ExportScreen(),
-        //'/settings': (context) => const SettingsScreen(),
+        '/settings': (context) => SettingsScreen(),
         //'/preferences': (context) => const PreferencesScreen()
       },
     );
