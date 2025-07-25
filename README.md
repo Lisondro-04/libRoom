@@ -4,11 +4,12 @@ A writing software.
 More than a rich text processor, libRoom seeks to meet the needs of writing and managing narrative projects. Therefore, it is aimed at writers and poets.
 
 Si bien figuran 5 personas en las contribuciones, de estos, 3 sus contribuciones fueron mínimas, y absolutamente todas debieron ser corregidas por mi persona (Josué Lisondro), estos en la práctica dejando el proyecto sobre mis hombros. No merecen más de la mitad de la nota, pues sus contribuciones se deben considerar por debajo de lo mínimo aceptable.
-(Toda la estructura del proyecto y la idea original es de Josué Lisondro)
+(Toda la estructura del proyecto y la idea original es de Josué Lisondro, así como la documentación, tanto del frontend y el backend)
+
 Contribuciones:
 Kenneth Silvera: decentes
 Einar Córdoba: decentes, casi siemrpe debieron ser corregidas.
-Edward Ibarra: aún peor que el anterior. (título del proyecto)
+Edward Ibarra: aún peor que el anterior. (además de contribuir con el título del proyecto)
 Bastien Aparicio: sus contribuciones fueron tan minúsculas y pésimas que todo su trabajo recayó sobre mí.
 
 ## Commands to work with the backend
